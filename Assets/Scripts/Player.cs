@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] private float speed = 5f;
+    [SerializeField] Transform cam;
     
     void Start()
     {
@@ -29,19 +30,19 @@ public class Player : MonoBehaviour
         Vector3 moveVector = Vector3.zero;
         if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))
         {
-            moveVector += Vector3.forward;
+            moveVector += cam.transform.forward;
         }
         if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
         {
-            moveVector += Vector3.back;
+            moveVector += -cam.transform.forward;
         }
         if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
         {
-            moveVector += Vector3.left;
+            moveVector += -cam.transform.right;
         }
         if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
         {
-            moveVector += Vector3.right;
+            moveVector += cam.transform.right;
         }
         return moveVector.normalized;
     }
