@@ -15,7 +15,7 @@ public class Axis : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        cam.transform.localPosition = new Vector3(0, 1, -5);
+        cam.transform.localPosition = new Vector3(0, 0.7f, 0);
         cam.transform.localRotation = transform.rotation;
     }
 
