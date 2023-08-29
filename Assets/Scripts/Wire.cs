@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class Wire : MonoBehaviour
 {
+    [SerializeField] private Player _player;
+
     public Transform cam;
     public RaycastHit hit;
     private Rigidbody rb;
@@ -22,7 +24,7 @@ public class Wire : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(hit.distance);
+        //Debug.Log(hit.distance);
         if (Input.GetMouseButtonDown(0))
         {
             if (hit.distance <= 20 && hit.distance != 0)
@@ -30,6 +32,7 @@ public class Wire : MonoBehaviour
                 attached = true;
                 rb.isKinematic = true;
                 RaycastHitpoint = hit.point;
+                _player.enabled = false;
             }
         }
         
@@ -37,7 +40,12 @@ public class Wire : MonoBehaviour
         {
             attached = false;
             rb.isKinematic = false;
-            rb.velocity = cam.forward * momentum;
+            var heading = RaycastHitpoint - transform.position;
+            var distance = heading.magnitude;
+            var direction = heading / distance;
+            rb.velocity = direction * momentum;
+            _player.enabled = true;
+            if (Vector3.Distance(RaycastHitpoint, transform.position) == 0) momentum = 0;
         }
         
         if (attached)
@@ -51,7 +59,6 @@ public class Wire : MonoBehaviour
             momentum -= Time.deltaTime * 5;
             step = 0;
         }
-        if (Vector3.Distance(RaycastHitpoint, transform.position) == 0) momentum = 0;
         if (momentum <= 0)
         {
             momentum = 0;
