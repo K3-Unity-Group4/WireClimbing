@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// カメラの制御
 public class Axis : MonoBehaviour
 {   
     float angleUp = 60f;

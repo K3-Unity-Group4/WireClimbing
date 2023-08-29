@@ -6,7 +6,7 @@ using UnityEngine;
 public class Wire : MonoBehaviour
 {
     public Transform cam;
-    private RaycastHit hit;
+    public RaycastHit hit;
     private Rigidbody rb;
     public bool attached = false;
     private float momentum;
@@ -20,9 +20,10 @@ public class Wire : MonoBehaviour
 
     void Update()
     {
+        //Debug.Log(hit.distance);
         if (Input.GetMouseButtonDown(0))
         {
-            if (Physics.Raycast(cam.position, cam.forward, out hit))
+            if (hit.distance <= 20 && hit.distance != 0)
             {
                 attached = true;
                 rb.isKinematic = true;
