@@ -12,6 +12,7 @@ public class Wire : MonoBehaviour
     private float momentum;
     public float speed;
     private float step;
+    private Vector3 RaycastHitpoint;
 
     void Start()
     {
@@ -27,6 +28,7 @@ public class Wire : MonoBehaviour
             {
                 attached = true;
                 rb.isKinematic = true;
+                RaycastHitpoint = hit.point;
             }
         }
         if (Input.GetMouseButtonUp(0))
@@ -39,7 +41,7 @@ public class Wire : MonoBehaviour
         {
             momentum += Time.deltaTime * speed;
             step = momentum * Time.deltaTime;
-            transform.position = Vector3.MoveTowards(transform.position, hit.point, step);
+            transform.position = Vector3.MoveTowards(transform.position, RaycastHitpoint, step);
         }
         if (!attached && momentum >= 0)
         {
