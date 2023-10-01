@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditorInternal;
 using UnityEngine;
 
 
@@ -25,7 +24,7 @@ public class Wire : MonoBehaviour
     void Update()
     {
         //Debug.Log(hit.distance);
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) || OVRInput.GetDown(OVRInput.Button.Two))
         {
             if (hit.distance <= 20 && hit.distance != 0)
             {
@@ -36,7 +35,7 @@ public class Wire : MonoBehaviour
             }
         }
         
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0) || OVRInput.GetUp(OVRInput.Button.Two))
         {
             attached = false;
             rb.isKinematic = false;
