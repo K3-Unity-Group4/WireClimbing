@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// 画面のレティクルについてのスクリプトです
 public class Reticle : MonoBehaviour
 {
     [SerializeField] private Wire _wire;
@@ -43,9 +44,6 @@ public class Reticle : MonoBehaviour
                     break;
             }
         }
-
-
-        
     }
     
 
