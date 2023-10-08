@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 
 public class Wire : MonoBehaviour
@@ -8,6 +10,7 @@ public class Wire : MonoBehaviour
     [SerializeField] private Player _player;
 
     public Transform cam;
+    public Transform anchor;
     public RaycastHit hit;
     private Rigidbody rb;
     public bool attached = false;
@@ -15,6 +18,9 @@ public class Wire : MonoBehaviour
     public float speed;
     private float step;
     private Vector3 RaycastHitpoint;
+    
+
+    [SerializeField] private TextMeshProUGUI ui;
 
     [SerializeField] private GameObject accelerationObject;
     private ParticleSystem acceleration;
@@ -27,8 +33,49 @@ public class Wire : MonoBehaviour
 
     void Update()
     {
+        Ray ray = new Ray(anchor.position, anchor.forward);
+        
+        if(Physics.Raycast(ray, out hit, 100))
+        {
+            GameObject target = hit.collider.gameObject;
+ 
+            // 右コントローラのAボタンを押した場合
+            if(OVRInput.GetDown(OVRInput.RawButton.A))
+            {
+                ui.text = "aaaaaaaaaaa";
+                target.GetComponent<MeshRenderer>().material.color = Color.red;
+                
+            }
+            
+            if (OVRInput.GetDown(OVRInput.RawButton.B))
+            {
+                attached = true;
+                rb.isKinematic = true;
+                RaycastHitpoint = hit.point;
+                _player.enabled = false;
+                accelerationObject.SetActive(true);
+            }
+        
+            if (OVRInput.GetUp(OVRInput.RawButton.B))
+            {
+                attached = false;
+                rb.isKinematic = false;
+                var heading = RaycastHitpoint - transform.position;
+                var distance = heading.magnitude;
+                var direction = heading / distance;
+                rb.velocity = direction * momentum;
+                _player.enabled = true;
+                accelerationObject.SetActive(false);
+            }
+        }
+        
+        if (OVRInput.GetDown(OVRInput.Button.Two))
+        {
+            ui.text = "押された";
+        }
+
         //Debug.Log(hit.distance);
-        if (Input.GetMouseButtonDown(0) || OVRInput.GetDown(OVRInput.Button.Two))
+        if (Input.GetMouseButtonDown(0))
         {
             if (hit.distance <= 20 && hit.distance != 0)
             {
@@ -40,7 +87,7 @@ public class Wire : MonoBehaviour
             }
         }
         
-        if (Input.GetMouseButtonUp(0) || OVRInput.GetUp(OVRInput.Button.Two))
+        if (Input.GetMouseButtonUp(0))
         {
             attached = false;
             rb.isKinematic = false;
@@ -57,7 +104,8 @@ public class Wire : MonoBehaviour
         {
             momentum += Time.deltaTime * speed;
             step = momentum * Time.deltaTime;
-            transform.position = Vector3.MoveTowards(transform.position, RaycastHitpoint, step);
+            if (Vector3.Distance(RaycastHitpoint, transform.position) <= 1) momentum = 0;
+            else transform.position = Vector3.MoveTowards(transform.position, RaycastHitpoint, step);
         }
         if (!attached && momentum >= 0)
         {
@@ -69,5 +117,7 @@ public class Wire : MonoBehaviour
             momentum = 0;
             step = 0;
         }
+
+        
     }
 }
