@@ -16,9 +16,13 @@ public class Wire : MonoBehaviour
     private float step;
     private Vector3 RaycastHitpoint;
 
+    [SerializeField] private GameObject accelerationObject;
+    private ParticleSystem acceleration;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        acceleration = accelerationObject.GetComponent<ParticleSystem>();
     }
 
     void Update()
@@ -32,6 +36,7 @@ public class Wire : MonoBehaviour
                 rb.isKinematic = true;
                 RaycastHitpoint = hit.point;
                 _player.enabled = false;
+                accelerationObject.SetActive(true);
             }
         }
         
@@ -45,6 +50,7 @@ public class Wire : MonoBehaviour
             rb.velocity = direction * momentum;
             _player.enabled = true;
             if (Vector3.Distance(RaycastHitpoint, transform.position) == 0) momentum = 0;
+            accelerationObject.SetActive(false);
         }
         
         if (attached)
