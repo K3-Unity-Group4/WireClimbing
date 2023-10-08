@@ -104,7 +104,11 @@ public class Wire : MonoBehaviour
         {
             momentum += Time.deltaTime * speed;
             step = momentum * Time.deltaTime;
-            if (Vector3.Distance(RaycastHitpoint, transform.position) <= 1) momentum = 0;
+            if (Vector3.Distance(RaycastHitpoint, transform.position) <= 1)
+            {
+                momentum = 0;
+                accelerationObject.SetActive(false);
+            }
             else transform.position = Vector3.MoveTowards(transform.position, RaycastHitpoint, step);
         }
         if (!attached && momentum >= 0)
