@@ -69,10 +69,7 @@ public class Wire : MonoBehaviour
             }
         }
         
-        if (OVRInput.GetDown(OVRInput.Button.Two))
-        {
-            ui.text = "押された";
-        }
+        if (OVRInput.GetDown(OVRInput.Button.Two)) ui.text = "押された";
 
         //Debug.Log(hit.distance);
         if (Input.GetMouseButtonDown(0))
@@ -104,7 +101,7 @@ public class Wire : MonoBehaviour
         {
             momentum += Time.deltaTime * speed;
             step = momentum * Time.deltaTime;
-            if (Vector3.Distance(RaycastHitpoint, transform.position) <= 1)
+            if (Vector3.Distance(RaycastHitpoint, transform.position) <= 1.5f)
             {
                 momentum = 0;
                 accelerationObject.SetActive(false);
@@ -121,7 +118,5 @@ public class Wire : MonoBehaviour
             momentum = 0;
             step = 0;
         }
-
-        
     }
 }
