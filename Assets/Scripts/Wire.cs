@@ -11,14 +11,16 @@ public class Wire : MonoBehaviour
 
     public Transform cam;
     public Transform anchor;
+    private Transform hitObj;
     public RaycastHit hit;
     private Rigidbody rb;
     public bool attached = false;
     private float momentum;
     public float speed;
     private float step;
-    private Vector3 RaycastHitpoint;
-    
+    private Vector3 raycastHitpoint;
+    private Vector3 localHitPoint;
+    private Vector3 worldPoint;
 
     [SerializeField] private TextMeshProUGUI ui;
 
@@ -44,23 +46,33 @@ public class Wire : MonoBehaviour
             {
                 ui.text = "aaaaaaaaaaa";
                 target.GetComponent<MeshRenderer>().material.color = Color.red;
-                
             }
             
             if (OVRInput.GetDown(OVRInput.RawButton.B))
             {
                 attached = true;
                 rb.isKinematic = true;
-                RaycastHitpoint = hit.point;
+                
+                gameObject.transform.parent = hit.collider.transform;
+                localHitPoint = hit.transform.InverseTransformPoint(hit.point);
+                hitObj = hit.transform;
+                worldPoint = hit.transform.TransformPoint(localHitPoint) - hitObj.position;
+                // RaycastHitpoint = hit.point;
+                
                 _player.enabled = false;
                 accelerationObject.SetActive(true);
             }
-        
+
+            if (OVRInput.Get(OVRInput.RawButton.B))
+            {
+                raycastHitpoint = hitObj.position + worldPoint;
+            }
+
             if (OVRInput.GetUp(OVRInput.RawButton.B))
             {
                 attached = false;
                 rb.isKinematic = false;
-                var heading = RaycastHitpoint - transform.position;
+                var heading = raycastHitpoint - transform.position;
                 var distance = heading.magnitude;
                 var direction = heading / distance;
                 rb.velocity = direction * momentum;
@@ -69,10 +81,7 @@ public class Wire : MonoBehaviour
             }
         }
         
-        if (OVRInput.GetDown(OVRInput.Button.Two))
-        {
-            ui.text = "押された";
-        }
+        if (OVRInput.GetDown(OVRInput.Button.Two)) ui.text = "押された";
 
         //Debug.Log(hit.distance);
         if (Input.GetMouseButtonDown(0))
@@ -81,22 +90,35 @@ public class Wire : MonoBehaviour
             {
                 attached = true;
                 rb.isKinematic = true;
-                RaycastHitpoint = hit.point;
+                
+                gameObject.transform.parent = hit.collider.transform;
+                localHitPoint = hit.transform.InverseTransformPoint(hit.point);
+                hitObj = hit.transform;
+                worldPoint = hit.transform.TransformPoint(localHitPoint) - hitObj.position;
+                // Debug.Log(worldPoint);
+                // RaycastHitpoint = hit.point;
+                
                 _player.enabled = false;
                 accelerationObject.SetActive(true);
             }
         }
-        
+
+        if (Input.GetMouseButton(0))
+        {
+            raycastHitpoint = hitObj.position + worldPoint;
+        }
+
         if (Input.GetMouseButtonUp(0))
         {
             attached = false;
             rb.isKinematic = false;
-            var heading = RaycastHitpoint - transform.position;
+            gameObject.transform.parent = null;
+            var heading = raycastHitpoint - transform.position;
             var distance = heading.magnitude;
             var direction = heading / distance;
             rb.velocity = direction * momentum;
             _player.enabled = true;
-            if (Vector3.Distance(RaycastHitpoint, transform.position) == 0) momentum = 0;
+            if (Vector3.Distance(raycastHitpoint, transform.position) == 0) momentum = 0;
             accelerationObject.SetActive(false);
         }
         
@@ -104,12 +126,12 @@ public class Wire : MonoBehaviour
         {
             momentum += Time.deltaTime * speed;
             step = momentum * Time.deltaTime;
-            if (Vector3.Distance(RaycastHitpoint, transform.position) <= 1)
+            if (Vector3.Distance(raycastHitpoint, transform.position) <= 1.5f)
             {
                 momentum = 0;
                 accelerationObject.SetActive(false);
             }
-            else transform.position = Vector3.MoveTowards(transform.position, RaycastHitpoint, step);
+            else transform.position = Vector3.MoveTowards(transform.position, raycastHitpoint, step);
         }
         if (!attached && momentum >= 0)
         {
@@ -121,7 +143,5 @@ public class Wire : MonoBehaviour
             momentum = 0;
             step = 0;
         }
-
-        
     }
 }
