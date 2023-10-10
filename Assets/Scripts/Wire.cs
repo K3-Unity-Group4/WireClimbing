@@ -53,7 +53,7 @@ public class Wire : MonoBehaviour
                 attached = true;
                 rb.isKinematic = true;
                 
-                gameObject.transform.parent = hit.transform;
+                gameObject.transform.parent = hit.collider.transform;
                 localHitPoint = hit.transform.InverseTransformPoint(hit.point);
                 hitObj = hit.transform;
                 worldPoint = hit.transform.TransformPoint(localHitPoint) - hitObj.position;
@@ -65,7 +65,7 @@ public class Wire : MonoBehaviour
 
             if (OVRInput.Get(OVRInput.RawButton.B))
             {
-                if (hit.distance <= 100 && hit.distance != 0) raycastHitpoint = hitObj.position + worldPoint;
+                raycastHitpoint = hitObj.position + worldPoint;
             }
 
             if (OVRInput.GetUp(OVRInput.RawButton.B))
@@ -126,7 +126,7 @@ public class Wire : MonoBehaviour
         {
             momentum += Time.deltaTime * speed;
             step = momentum * Time.deltaTime;
-            if (Vector3.Distance(raycastHitpoint, transform.position) <= 2)
+            if (Vector3.Distance(raycastHitpoint, transform.position) <= 1.5f)
             {
                 momentum = 0;
                 accelerationObject.SetActive(false);
