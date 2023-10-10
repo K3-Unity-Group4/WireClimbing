@@ -11,6 +11,7 @@ public class Wire : MonoBehaviour
 
     public Transform cam;
     public Transform anchor;
+    private Transform hitObj;
     public RaycastHit hit;
     private Rigidbody rb;
     public bool attached = false;
@@ -18,7 +19,8 @@ public class Wire : MonoBehaviour
     public float speed;
     private float step;
     private Vector3 RaycastHitpoint;
-    
+    private Vector3 localHitPoint;
+    private Vector3 worldPoint;
 
     [SerializeField] private TextMeshProUGUI ui;
 
@@ -78,16 +80,29 @@ public class Wire : MonoBehaviour
             {
                 attached = true;
                 rb.isKinematic = true;
-                RaycastHitpoint = hit.point;
+                
+                gameObject.transform.parent = hit.transform;
+                localHitPoint = hit.transform.InverseTransformPoint(hit.point);
+                hitObj = hit.transform;
+                worldPoint = hit.transform.TransformPoint(localHitPoint) - hitObj.position;
+                Debug.Log(worldPoint);
+                // RaycastHitpoint = hit.point;
+                
                 _player.enabled = false;
                 accelerationObject.SetActive(true);
             }
         }
-        
+
+        if (Input.GetMouseButton(0))
+        {
+            if (hit.distance <= 20 && hit.distance != 0) RaycastHitpoint = hitObj.position + worldPoint;
+        }
+
         if (Input.GetMouseButtonUp(0))
         {
             attached = false;
             rb.isKinematic = false;
+            gameObject.transform.parent = null;
             var heading = RaycastHitpoint - transform.position;
             var distance = heading.magnitude;
             var direction = heading / distance;
