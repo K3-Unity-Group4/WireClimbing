@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -53,5 +54,21 @@ public class Player : MonoBehaviour
         Vector3 moveDelta;
         moveDelta = moveVector * Time.deltaTime * speed;
         transform.position += moveDelta;
+    }
+
+    private void OnCollisionEnter(Collision col)
+    {
+        if (col.gameObject.CompareTag("Block"))
+        {
+            gameObject.transform.parent = col.gameObject.transform;
+        }
+    }
+    
+    private void OnCollisionExit(Collision col)
+    {
+        if (col.gameObject.CompareTag("Block"))
+        {
+            gameObject.transform.parent = null;
+        }
     }
 }
