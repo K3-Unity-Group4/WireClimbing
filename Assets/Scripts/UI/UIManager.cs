@@ -8,7 +8,7 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField] private GameObject pausecanvas;
     //[SerializeField] private ScoreManager sm;
-    [SerializeField] private GameObject stage_text;
+    [SerializeField] private TextMeshProUGUI stage_text;
     [SerializeField] private TextMeshProUGUI height_text;
     [SerializeField] private TextMeshProUGUI nowtime_text;
     [SerializeField] private TextMeshProUGUI fasttime_text;
@@ -40,13 +40,14 @@ public class UIManager : MonoBehaviour
         goal_height = (int)goal_object.transform.position.y;
         original_height = (int)bottom_object.transform.position.y;
         height_gage.fillAmount = 0;
-        originalUI_pos = UI_pos.position.y;
+        //originalUI_pos = UI_pos.position.y;
+        stage_text.text = SceneManager.GetActiveScene().name;
         StartCoroutine("TimeManager");
     }
     void Update()
     {
         HeightManager();
-        //PauseManager();
+        PauseManager();
     }
     void PauseManager()    //UIä«óù
     {
@@ -99,6 +100,6 @@ public class UIManager : MonoBehaviour
         
         height_text.text = "Height:" + now_height.ToString() + " m";
         height_gage.fillAmount = (float)now_height / goal_height;
-        UI_pos.transform.position =new Vector3(UI_pos.position.x,originalUI_pos+500f* height_gage.fillAmount, 0);
+        //UI_pos.transform.position =new Vector3(UI_pos.position.x,originalUI_pos+500f* height_gage.fillAmount, 0);
     }
 }
