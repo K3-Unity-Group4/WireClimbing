@@ -8,7 +8,7 @@ public class LinerMoving : MonoBehaviour
     private Rigidbody object_rb;
     public float moveTime = 5.0f; //Anchor間の移動時間
     public float defoltStopTime = 2.0f;　 //Anchorでの停止時間
-    public bool isSmooth = true;
+    public bool isSmoothMove = true;
     public GameObject[] AnchorPoints;
 
     private int nowAnchorIndex; //最後に通過したAncorのindex番号
@@ -47,11 +47,11 @@ public class LinerMoving : MonoBehaviour
             if (Vector3.Distance(transform.position, nextPosition) > 0.01f)
             {
                 //現在地から次のAnchorPointへのベクトルを作成
-                if (isSmooth)
+                if (isSmoothMove)
                 {
                     timer += Time.deltaTime;
                 }
-                else if (!isSmooth)
+                else if (!isSmoothMove)
                 {
                     timer += Time.deltaTime;
                 }
@@ -74,7 +74,7 @@ public class LinerMoving : MonoBehaviour
                 {
                     --nowAnchorIndex;
                 }
-                //現在のAnchorPointが配列の最後だった場合
+                //現在のAnchorPointが配列の両端だった場合逆方向へ移動
                 if (nowAnchorIndex + 1 >= AnchorPoints.Length)
                 {
                     isReturning = true;
@@ -83,8 +83,9 @@ public class LinerMoving : MonoBehaviour
                 {
                     isReturning = false;
                 }
-                timer = 0f;
-                StartCoroutine(StopMoving());
+
+                timer = 0f;　//タイマーのリセット
+                StartCoroutine(StopMoving()); //一時停止
             }
         }
         
@@ -97,7 +98,8 @@ public class LinerMoving : MonoBehaviour
         isMoving = true;
     }
 
-    //デバッグ用 Anchor間に線を引く
+
+    //デバッグ用　SceneタブでAnchor間に線を引く
     void OnDrawGizmos()
     {
         if (AnchorPoints.Length >= 2)
