@@ -18,9 +18,10 @@ public class Wire : MonoBehaviour
     private float momentum;
     public float speed;
     private float step;
-    private Vector3 raycastHitpoint;
+    public Vector3 raycastHitpoint;
     private Vector3 localHitPoint;
     private Vector3 worldPoint;
+    [SerializeField] private GameObject wire;
 
     [SerializeField] private TextMeshProUGUI ui;
 
@@ -59,6 +60,7 @@ public class Wire : MonoBehaviour
                 worldPoint = hit.transform.TransformPoint(localHitPoint) - hitObj.position;
                 // RaycastHitpoint = hit.point;
                 
+                wire.SetActive(true);
                 _player.enabled = false;
                 accelerationObject.SetActive(true);
             }
@@ -76,6 +78,7 @@ public class Wire : MonoBehaviour
                 var distance = heading.magnitude;
                 var direction = heading / distance;
                 rb.velocity = direction * momentum;
+                wire.SetActive(false);
                 _player.enabled = true;
                 accelerationObject.SetActive(false);
             }
@@ -98,6 +101,7 @@ public class Wire : MonoBehaviour
                 // Debug.Log(worldPoint);
                 // RaycastHitpoint = hit.point;
                 
+                wire.SetActive(true);
                 _player.enabled = false;
                 accelerationObject.SetActive(true);
             }
@@ -117,6 +121,7 @@ public class Wire : MonoBehaviour
             var distance = heading.magnitude;
             var direction = heading / distance;
             rb.velocity = direction * momentum;
+            wire.SetActive(false);
             _player.enabled = true;
             if (Vector3.Distance(raycastHitpoint, transform.position) == 0) momentum = 0;
             accelerationObject.SetActive(false);
