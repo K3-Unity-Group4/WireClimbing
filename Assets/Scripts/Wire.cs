@@ -64,27 +64,29 @@ public class Wire : MonoBehaviour
                 _player.enabled = false;
                 accelerationObject.SetActive(true);
             }
-
-            if (OVRInput.Get(OVRInput.RawButton.B))
-            {
-                raycastHitpoint = hitObj.position + worldPoint;
-            }
-
-            if (OVRInput.GetUp(OVRInput.RawButton.B))
-            {
-                attached = false;
-                rb.isKinematic = false;
-                var heading = raycastHitpoint - transform.position;
-                var distance = heading.magnitude;
-                var direction = heading / distance;
-                rb.velocity = direction * momentum;
-                wire.SetActive(false);
-                _player.enabled = true;
-                accelerationObject.SetActive(false);
-            }
         }
         
-        if (OVRInput.GetDown(OVRInput.Button.Two)) ui.text = "押された";
+        if (OVRInput.Get(OVRInput.RawButton.B))
+        {
+            raycastHitpoint = hitObj.position + worldPoint;
+        }
+
+        if (OVRInput.GetUp(OVRInput.RawButton.B))
+        {
+            attached = false;
+            rb.isKinematic = false;
+            gameObject.transform.parent = null;
+            var heading = raycastHitpoint - transform.position;
+            var distance = heading.magnitude;
+            var direction = heading / distance;
+            rb.velocity = direction * momentum;
+            wire.SetActive(false);
+            _player.enabled = true;
+            if (Vector3.Distance(raycastHitpoint, transform.position) == 0) momentum = 0;
+            accelerationObject.SetActive(false);
+        }
+        
+        // if (OVRInput.GetDown(OVRInput.Button.Two)) ui.text = "押された";
 
         //Debug.Log(hit.distance);
         if (Input.GetMouseButtonDown(0))
