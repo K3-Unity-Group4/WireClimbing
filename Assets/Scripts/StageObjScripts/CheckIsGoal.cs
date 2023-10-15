@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CheckIsGoal : MonoBehaviour
 {
+    private bool isGoal = false;
+    [SerializeField] private Canvas goalText;
+
     void Start()
     {
-        
+        goalText.enabled = false; 
     }
 
     void Update()
@@ -18,8 +22,22 @@ public class CheckIsGoal : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            //---ƒS[ƒ‹‚Ìˆ—---
-            Debug.Log("Goal");
+            if (!isGoal)
+            {
+                isGoal = true;
+                //---ƒS[ƒ‹‚Ìˆ—---
+                goalText.enabled = true;
+                StartCoroutine("WaitChangeScene");
+
+                //Debug.Log("Goal");
+
+            }
         }
+    }
+
+    private IEnumerator WaitChangeScene()
+    {
+        //1•b‘Ò‚Â
+        yield return new WaitForSeconds(2.0f);
     }
 }
