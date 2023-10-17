@@ -18,9 +18,10 @@ public class Wire : MonoBehaviour
     private float momentum;
     public float speed;
     private float step;
-    private Vector3 raycastHitpoint;
+    public Vector3 raycastHitpoint;
     private Vector3 localHitPoint;
     private Vector3 worldPoint;
+    [SerializeField] private GameObject wire;
 
     [SerializeField] private TextMeshProUGUI ui;
 
@@ -59,29 +60,33 @@ public class Wire : MonoBehaviour
                 worldPoint = hit.transform.TransformPoint(localHitPoint) - hitObj.position;
                 // RaycastHitpoint = hit.point;
                 
+                wire.SetActive(true);
                 _player.enabled = false;
                 accelerationObject.SetActive(true);
             }
-
-            if (OVRInput.Get(OVRInput.RawButton.B))
-            {
-                raycastHitpoint = hitObj.position + worldPoint;
-            }
-
-            if (OVRInput.GetUp(OVRInput.RawButton.B))
-            {
-                attached = false;
-                rb.isKinematic = false;
-                var heading = raycastHitpoint - transform.position;
-                var distance = heading.magnitude;
-                var direction = heading / distance;
-                rb.velocity = direction * momentum;
-                _player.enabled = true;
-                accelerationObject.SetActive(false);
-            }
         }
         
-        if (OVRInput.GetDown(OVRInput.Button.Two)) ui.text = "押された";
+        if (OVRInput.Get(OVRInput.RawButton.B))
+        {
+            raycastHitpoint = hitObj.position + worldPoint;
+        }
+
+        if (OVRInput.GetUp(OVRInput.RawButton.B))
+        {
+            attached = false;
+            rb.isKinematic = false;
+            gameObject.transform.parent = null;
+            var heading = raycastHitpoint - transform.position;
+            var distance = heading.magnitude;
+            var direction = heading / distance;
+            rb.velocity = direction * momentum;
+            wire.SetActive(false);
+            _player.enabled = true;
+            if (Vector3.Distance(raycastHitpoint, transform.position) == 0) momentum = 0;
+            accelerationObject.SetActive(false);
+        }
+        
+        // if (OVRInput.GetDown(OVRInput.Button.Two)) ui.text = "押された";
 
         //Debug.Log(hit.distance);
         if (Input.GetMouseButtonDown(0))
@@ -98,6 +103,7 @@ public class Wire : MonoBehaviour
                 // Debug.Log(worldPoint);
                 // RaycastHitpoint = hit.point;
                 
+                wire.SetActive(true);
                 _player.enabled = false;
                 accelerationObject.SetActive(true);
             }
@@ -117,6 +123,7 @@ public class Wire : MonoBehaviour
             var distance = heading.magnitude;
             var direction = heading / distance;
             rb.velocity = direction * momentum;
+            wire.SetActive(false);
             _player.enabled = true;
             if (Vector3.Distance(raycastHitpoint, transform.position) == 0) momentum = 0;
             accelerationObject.SetActive(false);
