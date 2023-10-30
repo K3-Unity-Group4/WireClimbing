@@ -542,6 +542,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
+
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &408673866
 GameObject:
@@ -661,6 +662,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
+
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &458767475
 GameObject:
@@ -947,7 +949,9 @@ RectTransform:
   m_LocalScale: {x: 0.83333325, y: 0.83333325, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
+
   m_Father: {fileID: 2104420145}
+
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -1577,8 +1581,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _player: {fileID: 1401031366}
   cam: {fileID: 1158730245}
+  anchor: {fileID: 0}
   attached: 0
   speed: 15
+
   accelerationObject: {fileID: 0}
 --- !u!4 &1401031365
 Transform:
@@ -2036,7 +2042,9 @@ RectTransform:
   m_LocalScale: {x: 0.83333325, y: 0.83333325, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
+
   m_Father: {fileID: 2071924095}
+
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -2246,7 +2254,9 @@ RectTransform:
   m_LocalScale: {x: 0.83333325, y: 0.83333325, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
+
   m_Father: {fileID: 1202949451}
+
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -2665,6 +2675,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+
 --- !u!1 &2071924094
 GameObject:
   m_ObjectHideFlags: 0
@@ -2817,6 +2828,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2104420144}
   m_CullTransparentMesh: 1
+
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -2832,3 +2844,4 @@ SceneRoots:
   - {fileID: 1811420795}
   - {fileID: 1993747229}
   - {fileID: 408673871}
+
