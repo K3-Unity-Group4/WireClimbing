@@ -4,6 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+
+[System.Serializable]
+public class ScoreData
+{
+    public List<float> bestTimes = new List<float>();
+    public List<int> scores = new List<int>();
+}
 public class UIManager : MonoBehaviour
 {
     [SerializeField] private GameObject pausecanvas;
@@ -21,16 +28,19 @@ public class UIManager : MonoBehaviour
     [SerializeField] Transform UI_pos;
 
     //高さ
-    int now_height;
-    int goal_height;
+    [System.NonSerialized]public int now_height;
+    [System.NonSerialized] public int goal_height;
     int original_height;
     float originalUI_pos;
     //時間
-    int nowtime;
+    public int nowtime;
     [Header("残り時間 10秒以上の整数")]
     [SerializeField] private int time_left; //残り時間
+    private const int MaxBestTimes = 5;
+    public static string prestagename;
     private void Start()
     {
+        Time.timeScale = 1;
         //if (pausecanvas.activeSelf == true) pausecanvas.SetActive(false);
         //if (finishtext.activeSelf == true) finishtext.SetActive(false);
         //if (time_left < 10) time_left = 30;
@@ -41,7 +51,9 @@ public class UIManager : MonoBehaviour
         original_height = (int)bottom_object.transform.position.y;
         height_gage.fillAmount = 0;
         //originalUI_pos = UI_pos.position.y;
-        stage_text.text = SceneManager.GetActiveScene().name;
+        prestagename= SceneManager.GetActiveScene().name;
+        stage_text.text = prestagename;
+        fasttime_text.text = PlayerPrefs.GetFloat("BestTime0").ToString()+" s";
         StartCoroutine("TimeManager");
     }
     void Update()
@@ -51,20 +63,18 @@ public class UIManager : MonoBehaviour
     }
     void PauseManager()    //UI管理
     {
-        if (Input.GetKey(KeyCode.E) && iskey == true)   //escapeボタンでポーズ　クエストボタンにする
+        if (pausecanvas.activeSelf == false && (Input.GetKeyDown(KeyCode.E)|| OVRInput.Get(OVRInput.Button.Two)) && iskey == true)   //escapeボタンでポーズ　クエストボタンにする
         {
             Time.timeScale = 0f;
             pausecanvas.SetActive(true);
+            
         }
-        if (pausecanvas.activeSelf == true && Input.GetMouseButton(0) && iskey == true)  //マウス右ボタンでポーズを閉じる　クエストボタンにする
+        else if (pausecanvas.activeSelf == true && (Input.GetKeyDown(KeyCode.E) || OVRInput.Get(OVRInput.Button.Two)) && iskey == true)  //マウス右ボタンでポーズを閉じる　クエストボタンにする
         {
             Time.timeScale = 1f;
             pausecanvas.SetActive(false);
-        }
-        if (pausecanvas.activeSelf == true && Input.GetMouseButton(1) && iskey == true)  //マウス左ボタンでポーズからタイトル　クエストボタンにする
-        {
-            Time.timeScale = 1f;
-            SceneManager.LoadScene("TitleScene");
+            
+
         }
 
         //if (time_left <= 0)
@@ -82,7 +92,7 @@ public class UIManager : MonoBehaviour
             yield return new WaitForSeconds(1f);
             time_left -= 1;
             nowtime+=1;
-            nowtime_text.text = "Time:" + nowtime.ToString() + "s";
+            nowtime_text.text =  nowtime.ToString() + " s";
             Debug.Log(time_left);
         }
     }
@@ -98,8 +108,110 @@ public class UIManager : MonoBehaviour
     {
         now_height = (int)player_pos.position.y - original_height;
         
-        height_text.text = "Height:" + now_height.ToString() + " m";
+        height_text.text =  now_height.ToString() + " m";
         height_gage.fillAmount = (float)now_height / goal_height;
         //UI_pos.transform.position =new Vector3(UI_pos.position.x,originalUI_pos+500f* height_gage.fillAmount, 0);
     }
+
+    public static void SaveTimeAndScore(float time, int score)
+    {
+        ScoreData scoreData = LoadData();
+        scoreData.bestTimes.Add(time);
+        scoreData.scores.Add(score);
+
+        //Result用
+        PlayerPrefs.SetFloat("NowTime", time);
+        PlayerPrefs.SetInt("NowHeight", score);
+        PlayerPrefs.Save();
+
+        if (scoreData.bestTimes.Count > MaxBestTimes)
+        {
+            float maxTime = scoreData.bestTimes[0]; // 最初の要素を最大値と仮定
+            int maxTimeIndex = 0;
+
+            // リスト内の最大値を見つける
+            for (int i = 1; i < scoreData.bestTimes.Count; i++)
+            {
+                if (scoreData.bestTimes[i] > maxTime)
+                {
+                    maxTime = scoreData.bestTimes[i];
+                    maxTimeIndex = i;
+                }
+            }
+
+            // 最も大きいタイムとそれに対応するスコアを削除
+            scoreData.bestTimes.RemoveAt(maxTimeIndex);
+            scoreData.scores.RemoveAt(maxTimeIndex);
+        }
+
+        SaveData(scoreData);
+    }
+
+    public static float LoadNowTime()
+    {
+        return PlayerPrefs.GetFloat("GoalTime", 0.0f);
+    }
+
+    public static int LoadNowHeight()
+    {
+        return PlayerPrefs.GetInt("NowHeight", 0);
+    }
+
+    public static List<float> LoadBestTimes()
+    {
+        ScoreData scoreData = LoadData();
+        List<float> bestTimes = scoreData.bestTimes;
+        bestTimes.Sort();
+        return bestTimes;
+    }
+
+    public static List<int> LoadScores()
+    {
+        ScoreData scoreData = LoadData();
+        List<int> scores = scoreData.scores;
+        List<float> bestTimes = scoreData.bestTimes;
+
+        // タイムを昇順にソート
+        List<int> sortedScores = new List<int>();
+        for (int i = 0; i < bestTimes.Count; i++)
+        {
+            int index = bestTimes.IndexOf(bestTimes[i]);
+            sortedScores.Add(scores[index]);
+        }
+
+        return sortedScores;
+    }
+
+    private static ScoreData LoadData()
+    {
+        string json = PlayerPrefs.GetString("ScoreData", "");
+        if (string.IsNullOrEmpty(json))
+        {
+            return new ScoreData();
+        }
+        return JsonUtility.FromJson<ScoreData>(json);
+    }
+
+    private static void SaveData(ScoreData scoreData)
+    {
+        string json = JsonUtility.ToJson(scoreData);
+        PlayerPrefs.SetString("ScoreData", json);
+        PlayerPrefs.Save();
+    }
+
+    public static void ResetData()
+    {
+        PlayerPrefs.DeleteKey("ScoreData");
+        PlayerPrefs.Save();
+    }
+
+    public static void InitializeIfNecessary()
+    {
+        if (!PlayerPrefs.HasKey("ScoreData"))
+        {
+            // セーブデータがない場合、初期化
+            ResetData();
+        }
+    }
 }
+
