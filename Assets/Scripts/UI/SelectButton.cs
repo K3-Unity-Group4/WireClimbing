@@ -106,12 +106,12 @@ public class SelectButton : MonoBehaviour
                 SceneManager.LoadScene("TitleScene");
                 break;
             case "Stage1Text":
-                SceneManager.LoadScene("StageTutrial");
-                //SceneManager.LoadScene("Wire");
+                //SceneManager.LoadScene("Stage1Scene");
+                SceneManager.LoadScene("Wire");
                 Debug.Log("Stage1");
                 break;
             case "Stage2Text":
-                SceneManager.LoadScene("Stage1");
+                //SceneManager.LoadScene("Stage2Scene");
                 Debug.Log("stage2");
                 break;
             case "Stage3Text":

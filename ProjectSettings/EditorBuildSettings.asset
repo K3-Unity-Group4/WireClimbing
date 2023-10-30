@@ -20,12 +20,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/RankingScene.unity
     guid: 52e39c0f8f3b1ff489aa272a04bce8a9
-  - enabled: 1
-    path: Assets/Scenes/StageTutrial.unity
-    guid: 37d626e4b9fe14f42839a17e1cfb9d00
-  - enabled: 1
-    path: Assets/Scenes/Stage1.unity
-    guid: ae63609f7461c564485668c172c9b844
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 31d89a8064bc6c24b9fce197f9aaadf3, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: c9e20ac19a8174544b47ea87819430fb, type: 2}
