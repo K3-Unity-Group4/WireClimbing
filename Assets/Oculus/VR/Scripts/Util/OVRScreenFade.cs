@@ -202,10 +202,20 @@ public class OVRScreenFade : MonoBehaviour
         SetMaterialAlpha();
     }
 
+
+    //-------------------------------------サンプルからの編集部分--------------------------------------
+
+    // (https:)//raspberly.hateblo.jp/entry/OculusQuestScreenFade を参考に FadeOn を追加
+    // フェード開始までの秒数をdelayで指定
+    public void FadeOn(float startAlpha = 0, float endAlpha = 1, float delay = 0)
+    {
+        StartCoroutine(Fade(startAlpha, endAlpha, delay));
+    }
+
     /// <summary>
     /// Fades alpha from 1.0 to 0.0
     /// </summary>
-    IEnumerator Fade(float startAlpha, float endAlpha)
+    IEnumerator Fade(float startAlpha, float endAlpha, float delay = 0f)
     {
         float elapsedTime = 0.0f;
         while (elapsedTime < fadeTime)
@@ -219,6 +229,8 @@ public class OVRScreenFade : MonoBehaviour
         animatedFadeAlpha = endAlpha;
         SetMaterialAlpha();
     }
+
+    //------------------------------------------------------------------------------------------------
 
     /// <summary>
     /// Update material alpha. UI fade and the current fade due to fade in/out animations (or explicit control)
