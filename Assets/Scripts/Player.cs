@@ -64,7 +64,7 @@ public class Player : MonoBehaviour
         transform.position += moveDelta;
     }
 
-    private void OnCollisionEnter(Collision col)
+    private void OnCollisionStay(Collision col)
     {
         if (col.gameObject.CompareTag("Block"))
         {

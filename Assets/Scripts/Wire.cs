@@ -133,6 +133,29 @@ public class Wire : MonoBehaviour
                 momentum = 0;
                 accelerationObject.SetActive(false);
                 
+                // 右コントローラのAボタンを押した場合
+                if(OVRInput.GetDown(OVRInput.RawButton.A))
+                {
+                    attached = false;
+                    rb.isKinematic = false;
+                    gameObject.transform.parent = null;
+                    wire.SetActive(false);
+                    _player.enabled = true;
+                    accelerationObject.SetActive(false);
+                    rb.AddForce(0, 500f, 0);
+                }
+                
+                // 右コントローラのAボタンを押した場合
+                if(Input.GetMouseButtonDown(1))
+                {
+                    attached = false;
+                    rb.isKinematic = false;
+                    gameObject.transform.parent = null;
+                    wire.SetActive(false);
+                    _player.enabled = true;
+                    accelerationObject.SetActive(false);
+                    rb.AddForce(0, 500f, 0);
+                }
             }
             else transform.position = Vector3.MoveTowards(transform.position, raycastHitpoint, step);
         }
