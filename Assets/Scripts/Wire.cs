@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -16,10 +17,11 @@ public class Wire : MonoBehaviour
     public RaycastHit hit;
     private Rigidbody rb;
     public bool attached = false;
+    private bool power = true;
     private float momentum;
     public float speed;
     private float step;
-    private float speedAnchor = 0.01f;
+    private float speedAnchor = 45f;
     public Vector3 raycastHitpoint;
     private Vector3 localHitPoint;
     private Vector3 worldPoint;
@@ -39,7 +41,7 @@ public class Wire : MonoBehaviour
     void Update()
     {
         Vector2 vectorL = OVRInput.Get(OVRInput.RawAxis2D.LThumbstick);
-        camVR.transform.eulerAngles += new Vector3(speed * vectorL.y, speed * vectorL.x, 0);
+        camVR.transform.eulerAngles += new Vector3(speedAnchor * vectorL.y, speedAnchor * vectorL.x, 0);
         
         Ray ray = new Ray(anchor.position, anchor.forward);
         
@@ -78,7 +80,8 @@ public class Wire : MonoBehaviour
             var heading = raycastHitpoint - transform.position;
             var distance = heading.magnitude;
             var direction = heading / distance;
-            rb.velocity = direction * momentum;
+            if(power) rb.velocity = direction * momentum;
+            power = true;
             wire.SetActive(false);
             _player.enabled = true;
             if (Vector3.Distance(raycastHitpoint, transform.position) == 0) momentum = 0;
@@ -122,7 +125,8 @@ public class Wire : MonoBehaviour
             var heading = raycastHitpoint - transform.position;
             var distance = heading.magnitude;
             var direction = heading / distance;
-            rb.velocity = direction * momentum;
+            if(power) rb.velocity = direction * momentum;
+            power = true;
             wire.SetActive(false);
             _player.enabled = true;
             if (Vector3.Distance(raycastHitpoint, transform.position) == 0) momentum = 0;
@@ -143,6 +147,7 @@ public class Wire : MonoBehaviour
                 {
                     attached = false;
                     rb.isKinematic = false;
+                    power = false;
                     gameObject.transform.parent = null;
                     wire.SetActive(false);
                     _player.enabled = true;
@@ -155,6 +160,7 @@ public class Wire : MonoBehaviour
                 {
                     attached = false;
                     rb.isKinematic = false;
+                    power = false;
                     gameObject.transform.parent = null;
                     wire.SetActive(false);
                     _player.enabled = true;
