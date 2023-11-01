@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.21215573, g: 0.6054964, b: 1.1251646, a: 1}
+  m_IndirectSpecularColor: {r: 0.21080858, g: 0.60091543, b: 1.1192546, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -12224,7 +12224,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1848374441}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1.26, z: -0.6466694}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -12233,7 +12233,7 @@ Transform:
   - {fileID: 2058049573}
   - {fileID: 1752250710}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1848374446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12248,7 +12248,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   cam: {fileID: 608894047}
-  camVR: {fileID: 1752250714}
+  camVR: {fileID: 1752250710}
 --- !u!114 &1848374447
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12285,6 +12285,7 @@ MonoBehaviour:
   anchor: {fileID: 1752250712}
   attached: 0
   speed: 15
+  speedAnchor: 2
   raycastHitpoint: {x: 0, y: 0, z: 0}
   wire: {fileID: 635559259}
   ui: {fileID: 1947527318}

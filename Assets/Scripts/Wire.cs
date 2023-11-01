@@ -21,7 +21,7 @@ public class Wire : MonoBehaviour
     private float momentum;
     public float speed;
     private float step;
-    private float speedAnchor = 45f;
+    public float speedAnchor = 5f;
     public Vector3 raycastHitpoint;
     private Vector3 localHitPoint;
     private Vector3 worldPoint;
@@ -41,11 +41,11 @@ public class Wire : MonoBehaviour
     void Update()
     {
         Vector2 vectorL = OVRInput.Get(OVRInput.RawAxis2D.LThumbstick);
-        camVR.transform.eulerAngles += new Vector3(speedAnchor * vectorL.y, speedAnchor * vectorL.x, 0);
+        transform.eulerAngles += new Vector3(-speedAnchor * vectorL.y, speedAnchor * vectorL.x, 0);
         
         Ray ray = new Ray(anchor.position, anchor.forward);
         
-        if(Physics.Raycast(ray, out hit, 100))
+        if(Physics.Raycast(ray, out hit, 20))
         {
             GameObject target = hit.collider.gameObject;
 
@@ -165,8 +165,9 @@ public class Wire : MonoBehaviour
                     wire.SetActive(false);
                     _player.enabled = true;
                     accelerationObject.SetActive(false);
-                    
-                    rb.AddForce(0, 500f, 0);
+                    Vector3 magnitude = camVR.transform.forward * 200;
+                    magnitude.y = 500;
+                    rb.AddForce(magnitude);
                 }
             }
             else transform.position = Vector3.MoveTowards(transform.position, raycastHitpoint, step);
