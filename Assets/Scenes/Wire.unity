@@ -12248,6 +12248,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   cam: {fileID: 608894047}
+  camVR: {fileID: 1752250714}
 --- !u!114 &1848374447
 MonoBehaviour:
   m_ObjectHideFlags: 0

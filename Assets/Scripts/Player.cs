@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private float speed = 5f;
     [SerializeField] Transform cam;
+    [SerializeField] Transform camVR;
     
     void Start()
     {
@@ -23,10 +24,6 @@ public class Player : MonoBehaviour
         {
             Move(moveVector);
         }
-        
-        
-        
-        
     }
     
     private Vector3 GetMoveVector()
@@ -50,8 +47,8 @@ public class Player : MonoBehaviour
         }
         
         Vector2 vectorR = OVRInput.Get(OVRInput.RawAxis2D.RThumbstick);
-        moveVector += vectorR.x * cam.transform.right;
-        moveVector += vectorR.y * cam.transform.forward;
+        moveVector += vectorR.x * camVR.transform.right;
+        moveVector += vectorR.y * camVR.transform.forward;
         
         return moveVector.normalized;
     }
