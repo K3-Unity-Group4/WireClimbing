@@ -18,6 +18,7 @@ public class Wire : MonoBehaviour
     private float momentum;
     public float speed;
     private float step;
+    private float speedAnchor = 0.01f;
     public Vector3 raycastHitpoint;
     private Vector3 localHitPoint;
     private Vector3 worldPoint;
@@ -36,6 +37,9 @@ public class Wire : MonoBehaviour
 
     void Update()
     {
+        Vector2 vectorL = OVRInput.Get(OVRInput.RawAxis2D.LThumbstick);
+        cam.transform.rotation = Quaternion.Euler(speed * vectorL.y, speed * vectorL.x, 0);
+        
         Ray ray = new Ray(anchor.position, anchor.forward);
         
         if(Physics.Raycast(ray, out hit, 100))
