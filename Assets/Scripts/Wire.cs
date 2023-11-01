@@ -37,8 +37,8 @@ public class Wire : MonoBehaviour
 
     void Update()
     {
-        Vector2 vectorL = OVRInput.Get(OVRInput.RawAxis2D.LThumbstick);
-        cam.transform.rotation = Quaternion.Euler(speed * vectorL.y, speed * vectorL.x, 0);
+        // Vector2 vectorL = OVRInput.Get(OVRInput.RawAxis2D.LThumbstick);
+        // cam.transform.rotation = Quaternion.Euler(speed * vectorL.y, speed * vectorL.x, 0);
         
         Ray ray = new Ray(anchor.position, anchor.forward);
         
