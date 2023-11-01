@@ -154,6 +154,7 @@ public class Wire : MonoBehaviour
                     wire.SetActive(false);
                     _player.enabled = true;
                     accelerationObject.SetActive(false);
+                    
                     rb.AddForce(0, 500f, 0);
                 }
             }

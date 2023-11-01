@@ -50,8 +50,8 @@ public class Player : MonoBehaviour
         }
         
         Vector2 vectorR = OVRInput.Get(OVRInput.RawAxis2D.RThumbstick);
-        moveVector += vectorR.x * cam.transform.forward;
-        moveVector += vectorR.y * cam.transform.right;
+        moveVector += vectorR.x * cam.transform.right;
+        moveVector += vectorR.y * cam.transform.forward;
         
         return moveVector.normalized;
     }
