@@ -2,18 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
 public class SelectButton : MonoBehaviour
 {
     [SerializeField] GameObject focus;
-    [SerializeField] List<GameObject> select_texts=new List<GameObject>();
-
-
+    [SerializeField] List<GameObject> select_texts = new List<GameObject>();
     [SerializeField] AudioSource audioSource;
     [SerializeField] AudioClip transfer_se;
     [SerializeField] AudioClip select_se;
-
-
     private int focus_max;
     protected private int focus_now;
     protected private int focus_old;
@@ -21,25 +16,25 @@ public class SelectButton : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Time.timeScale = 1;
         focus_max = select_texts.Count;
         focus_now = 1;
-        foreach(GameObject selecttext in select_texts)
+        foreach (GameObject selecttext in select_texts)
         {
             texts_animator.Add(selecttext.GetComponent<Animator>());
         }
         texts_animator[focus_now - 1].SetBool("IsSelect", true);
         AddStartProcess();
     }
-
     // Update is called once per frame
     void Update()
     {
         //Joyスティックに変更予定
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.A) ||  OVRInput.Get(OVRInput.Button.Four))
         {
             texts_animator[focus_now - 1].SetBool("IsSelect", false);
             focus_old = focus_now;
-            focus_now ++;
+            focus_now++;
             if (focus_now <= 0)
             {
                 focus_now = focus_max;
@@ -53,7 +48,7 @@ public class SelectButton : MonoBehaviour
             PlaySound(audioSource, transfer_se);
             AddProcess();
         }
-        if (Input.GetKeyDown(KeyCode.B))
+        if (Input.GetKeyDown(KeyCode.B) ||  OVRInput.Get(OVRInput.Button.Three))
         {
             texts_animator[focus_now - 1].SetBool("IsSelect", false);
             focus_old = focus_now;
@@ -71,20 +66,20 @@ public class SelectButton : MonoBehaviour
             PlaySound(audioSource, transfer_se);
             AddProcess();
         }
-        
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.Return) || OVRInput.Get(OVRInput.Button.One))
         {
             PlaySound(audioSource, select_se);
             StartCoroutine("PressAnimation");
         }
     }
-
     protected virtual IEnumerator PressAnimation()
     {
         texts_animator[focus_now - 1].SetBool("IsPress", true);
+        Time.timeScale = 1f;
         yield return new WaitForEndOfFrame();
-        yield return new WaitWhile(() => texts_animator[focus_now-1].GetCurrentAnimatorStateInfo(0).normalizedTime < 1f);
+        yield return new WaitWhile(() => texts_animator[focus_now - 1].GetCurrentAnimatorStateInfo(0).normalizedTime < 1f);
         texts_animator[focus_now - 1].SetBool("IsPress", false);
+        Time.timeScale = 0f;
         switch (select_texts[focus_now - 1].name)
         {
             case "StartText":
@@ -92,11 +87,11 @@ public class SelectButton : MonoBehaviour
                 SceneManager.LoadScene("StageSelectScene");
                 break;
             case "QuitText":
-            #if UNITY_EDITOR
+#if UNITY_EDITOR
                 UnityEditor.EditorApplication.isPlaying = false;
-            #else
+#else
                 Application.Quit();
-            #endif
+#endif
                 break;
             case "RankingText":
                 SceneManager.LoadScene("RankingScene");
@@ -106,12 +101,12 @@ public class SelectButton : MonoBehaviour
                 SceneManager.LoadScene("TitleScene");
                 break;
             case "Stage1Text":
-                //SceneManager.LoadScene("Stage1Scene");
-                SceneManager.LoadScene("Wire");
+                SceneManager.LoadScene("StageTutrialeScene");
+                //SceneManager.LoadScene("GameUITestScene");
                 Debug.Log("Stage1");
                 break;
             case "Stage2Text":
-                //SceneManager.LoadScene("Stage2Scene");
+                SceneManager.LoadScene("Stage1Scene");
                 Debug.Log("stage2");
                 break;
             case "Stage3Text":
@@ -119,15 +114,13 @@ public class SelectButton : MonoBehaviour
                 Debug.Log("stage3");
                 break;
             case "RePlayText":
-                //SceneManager.LoadScene("Scene");
+                SceneManager.LoadScene(UIManager.prestagename);
                 break;
         }
     }
-
     protected virtual void AddStartProcess() { }
     protected virtual void AddProcess() { }
-
-    private void PlaySound(AudioSource aus,AudioClip se)
+    private void PlaySound(AudioSource aus, AudioClip se)
     {
         aus.Stop(); // 既に再生中の場合、再生を停止
         aus.clip = se;

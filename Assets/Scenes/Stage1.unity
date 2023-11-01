@@ -192,6 +192,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 1795280365}
+  manager: {fileID: 0}
   goalText: {fileID: 477565020}
 --- !u!23 &8823654
 MeshRenderer:
@@ -355,7 +356,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &48054137
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7614,7 +7615,7 @@ MonoBehaviour:
   attached: 0
   speed: 15
   raycastHitpoint: {x: 0, y: 0, z: 0}
-  wire: {fileID: 0}
+  wire: {fileID: 276822025}
   ui: {fileID: 0}
   accelerationObject: {fileID: 291164460}
 --- !u!114 &1242258729
