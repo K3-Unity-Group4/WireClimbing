@@ -18,6 +18,7 @@ public class Wire : MonoBehaviour
     private float momentum;
     public float speed;
     private float step;
+    private float speedAnchor = 0.01f;
     public Vector3 raycastHitpoint;
     private Vector3 localHitPoint;
     private Vector3 worldPoint;
@@ -36,19 +37,15 @@ public class Wire : MonoBehaviour
 
     void Update()
     {
+        Vector2 vectorL = OVRInput.Get(OVRInput.RawAxis2D.LThumbstick);
+        cam.transform.rotation = Quaternion.Euler(speed * vectorL.y, speed * vectorL.x, 0);
+        
         Ray ray = new Ray(anchor.position, anchor.forward);
         
         if(Physics.Raycast(ray, out hit, 100))
         {
             GameObject target = hit.collider.gameObject;
- 
-            // 右コントローラのAボタンを押した場合
-            if(OVRInput.GetDown(OVRInput.RawButton.A))
-            {
-                ui.text = "aaaaaaaaaaa";
-                target.GetComponent<MeshRenderer>().material.color = Color.red;
-            }
-            
+
             if (OVRInput.GetDown(OVRInput.RawButton.B))
             {
                 attached = true;
@@ -75,6 +72,7 @@ public class Wire : MonoBehaviour
         {
             attached = false;
             rb.isKinematic = false;
+            // transform.rotation = Quaternion.Euler(0f, 0f, 0f);
             gameObject.transform.parent = null;
             var heading = raycastHitpoint - transform.position;
             var distance = heading.magnitude;
@@ -118,6 +116,7 @@ public class Wire : MonoBehaviour
         {
             attached = false;
             rb.isKinematic = false;
+            // transform.rotation = Quaternion.Euler(0f, 0f, 0f);
             gameObject.transform.parent = null;
             var heading = raycastHitpoint - transform.position;
             var distance = heading.magnitude;
@@ -137,6 +136,31 @@ public class Wire : MonoBehaviour
             {
                 momentum = 0;
                 accelerationObject.SetActive(false);
+                
+                // 右コントローラのAボタンを押した場合
+                if(OVRInput.GetDown(OVRInput.RawButton.A))
+                {
+                    attached = false;
+                    rb.isKinematic = false;
+                    gameObject.transform.parent = null;
+                    wire.SetActive(false);
+                    _player.enabled = true;
+                    accelerationObject.SetActive(false);
+                    rb.AddForce(0, 500f, 0);
+                }
+                
+                // 右コントローラのAボタンを押した場合
+                if(Input.GetMouseButtonDown(1))
+                {
+                    attached = false;
+                    rb.isKinematic = false;
+                    gameObject.transform.parent = null;
+                    wire.SetActive(false);
+                    _player.enabled = true;
+                    accelerationObject.SetActive(false);
+                    
+                    rb.AddForce(0, 500f, 0);
+                }
             }
             else transform.position = Vector3.MoveTowards(transform.position, raycastHitpoint, step);
         }

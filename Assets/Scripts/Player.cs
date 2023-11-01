@@ -24,6 +24,9 @@ public class Player : MonoBehaviour
             Move(moveVector);
         }
         
+        
+        
+        
     }
     
     private Vector3 GetMoveVector()
@@ -45,6 +48,11 @@ public class Player : MonoBehaviour
         {
             moveVector += cam.transform.right;
         }
+        
+        Vector2 vectorR = OVRInput.Get(OVRInput.RawAxis2D.RThumbstick);
+        moveVector += vectorR.x * cam.transform.right;
+        moveVector += vectorR.y * cam.transform.forward;
+        
         return moveVector.normalized;
     }
 
@@ -56,7 +64,7 @@ public class Player : MonoBehaviour
         transform.position += moveDelta;
     }
 
-    private void OnCollisionEnter(Collision col)
+    private void OnCollisionStay(Collision col)
     {
         if (col.gameObject.CompareTag("Block"))
         {
