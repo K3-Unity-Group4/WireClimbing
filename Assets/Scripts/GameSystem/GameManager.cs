@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]private GameObject player;
     [SerializeField] private GameObject fallDetectionPlane;
     [SerializeField] private OVRScreenFade screenfade;
+    [SerializeField] private float fadetime;
+
 
     public bool playerIsFall = false;
     public bool playerIsGoal = false;
@@ -15,6 +17,8 @@ public class GameManager : MonoBehaviour
     public bool playerIsGoalTutriale = false;
 
     public bool checkPoint_1 = false;
+    public bool checkPoint_2 = false;
+    public bool checkPoint_3 = false;
 
     public float heightOfFallDetection = -10;
     public Vector3 playerPositionCheckPoint;　//落下後に戻る座標
@@ -28,6 +32,7 @@ public class GameManager : MonoBehaviour
     {
         playerPositionCheckPoint = new Vector3(0f, 1.26f, 0f);
         maxHeightOfPlayer = player.transform.position.y;
+        screenfade.fadeTime = fadetime;
     }
 
     // Update is called once per frame
@@ -42,7 +47,7 @@ public class GameManager : MonoBehaviour
             PlayerFall();
             playerIsFall = false;
         }
-
+        //Playerゴール判定
         if (playerIsGoal)
         {
             PlayerGoal();
@@ -78,33 +83,43 @@ public class GameManager : MonoBehaviour
     //Player落下時の処理
     private void PlayerFall()
     {
-        screenfade.FadeOn(0, 1); //フェードアウト
-        StartCoroutine("WaitChangeScene", 2.0f);
-        player.transform.position = playerPositionCheckPoint; //セーブポイントへ移動
-        StartCoroutine("WaitChangeScene", 3.0f);
-        screenfade.FadeOn(1, 0); //フェードイン
+        StartCoroutine("RestartCheckPoint");
     }
 
     //ゴール時の処理
     private void PlayerGoal()
     {
-        StartCoroutine("WaitChangeScene", 2.0f);
-        screenfade.FadeOn(0, 1); //フェードアウト
-        SceneManager.LoadScene("RankingScene");
-
+        StartCoroutine("ChangeToRankingScene");
     }
 
     //ゴール時の処理(tutriale用、後で書き直します)
     private void PlayerGoalTutriale()
     {
-        StartCoroutine("WaitChangeScene", 2.0f);
-        screenfade.FadeOn(0, 1); //フェードアウト
-        SceneManager.LoadScene("StageSelectScene");
-
+        StartCoroutine("ChangeToStageSelectScene");
     }
 
-    private IEnumerator WaitChangeScene(float seconds)
+    private IEnumerator RestartCheckPoint()
     {
-        yield return new WaitForSeconds(seconds);
+        screenfade.FadeOn(0, 1, 1.0f); //フェードアウト
+        yield return new WaitForSeconds(1.0f);
+        player.transform.position = playerPositionCheckPoint; //セーブポイントへ移動
+        yield return new WaitForSeconds(0.5f);
+        screenfade.FadeOn(1, 0, 0.5f); //フェードイン
+    }
+
+    private IEnumerator ChangeToRankingScene()
+    {
+        yield return new WaitForSeconds(2.0f);
+        screenfade.FadeOn(0, 1, 1.5f); //フェードアウト
+        yield return new WaitForSeconds(2.0f);
+        SceneManager.LoadScene("RankingScene");
+    }
+
+    private IEnumerator ChangeToStageSelectScene()
+    {
+        yield return new WaitForSeconds(2.0f);
+        screenfade.FadeOn(0, 1, 1.5f); //フェードアウト
+        yield return new WaitForSeconds(2.0f);
+        SceneManager.LoadScene("StageSelectScene");
     }
 }
