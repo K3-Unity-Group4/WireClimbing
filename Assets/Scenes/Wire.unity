@@ -12280,6 +12280,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _player: {fileID: 1848374446}
   cam: {fileID: 608894047}
+  camVR: {fileID: 1752250714}
   anchor: {fileID: 1752250712}
   attached: 0
   speed: 15

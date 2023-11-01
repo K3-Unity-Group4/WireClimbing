@@ -10,6 +10,7 @@ public class Wire : MonoBehaviour
     [SerializeField] private Player _player;
 
     public Transform cam;
+    public Transform camVR;
     public Transform anchor;
     private Transform hitObj;
     public RaycastHit hit;
@@ -37,8 +38,8 @@ public class Wire : MonoBehaviour
 
     void Update()
     {
-        // Vector2 vectorL = OVRInput.Get(OVRInput.RawAxis2D.LThumbstick);
-        // cam.transform.rotation = Quaternion.Euler(speed * vectorL.y, speed * vectorL.x, 0);
+        Vector2 vectorL = OVRInput.Get(OVRInput.RawAxis2D.LThumbstick);
+        camVR.transform.eulerAngles += new Vector3(speed * vectorL.y, speed * vectorL.x, 0);
         
         Ray ray = new Ray(anchor.position, anchor.forward);
         
