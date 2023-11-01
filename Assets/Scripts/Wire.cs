@@ -41,14 +41,7 @@ public class Wire : MonoBehaviour
         if(Physics.Raycast(ray, out hit, 100))
         {
             GameObject target = hit.collider.gameObject;
- 
-            // 右コントローラのAボタンを押した場合
-            if(OVRInput.GetDown(OVRInput.RawButton.A))
-            {
-                ui.text = "aaaaaaaaaaa";
-                target.GetComponent<MeshRenderer>().material.color = Color.red;
-            }
-            
+
             if (OVRInput.GetDown(OVRInput.RawButton.B))
             {
                 attached = true;
@@ -75,6 +68,7 @@ public class Wire : MonoBehaviour
         {
             attached = false;
             rb.isKinematic = false;
+            // transform.rotation = Quaternion.Euler(0f, 0f, 0f);
             gameObject.transform.parent = null;
             var heading = raycastHitpoint - transform.position;
             var distance = heading.magnitude;
@@ -118,6 +112,7 @@ public class Wire : MonoBehaviour
         {
             attached = false;
             rb.isKinematic = false;
+            // transform.rotation = Quaternion.Euler(0f, 0f, 0f);
             gameObject.transform.parent = null;
             var heading = raycastHitpoint - transform.position;
             var distance = heading.magnitude;
@@ -137,6 +132,7 @@ public class Wire : MonoBehaviour
             {
                 momentum = 0;
                 accelerationObject.SetActive(false);
+                
             }
             else transform.position = Vector3.MoveTowards(transform.position, raycastHitpoint, step);
         }

@@ -24,6 +24,9 @@ public class Player : MonoBehaviour
             Move(moveVector);
         }
         
+        
+        
+        
     }
     
     private Vector3 GetMoveVector()
@@ -45,6 +48,11 @@ public class Player : MonoBehaviour
         {
             moveVector += cam.transform.right;
         }
+        
+        Vector2 vectorR = OVRInput.Get(OVRInput.RawAxis2D.RThumbstick);
+        moveVector += vectorR.x * cam.transform.forward;
+        moveVector += vectorR.y * cam.transform.right;
+        
         return moveVector.normalized;
     }
 
