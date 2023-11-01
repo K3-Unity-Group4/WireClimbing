@@ -26,10 +26,6 @@ public class GameManager : MonoBehaviour
 
     //[SerializeField] private float offsetFallDetectionPlane = -10;
 
-    private void Awake()
-    {
-        Time.timeScale = 1;
-    }
 
     // Start is called before the first frame update
     void Start()
