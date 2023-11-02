@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.21174768, g: 0.60281706, b: 1.1241385, a: 1}
+  m_IndirectSpecularColor: {r: 0.21080858, g: 0.60091543, b: 1.1192546, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -972,13 +972,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pausecanvas: {fileID: 1747655277}
-  stage_text: {fileID: 805498408}
-  height_text: {fileID: 37334381}
-  nowtime_text: {fileID: 1509616816}
-  fasttime_text: {fileID: 1366668246}
-  height_gage: {fileID: 1721488907}
-  bottom_object: {fileID: 1541926856}
-  goal_object: {fileID: 8823650}
+  stage_text: {fileID: 1628099530}
+  height_text: {fileID: 1624415870}
+  nowtime_text: {fileID: 672962010}
+  fasttime_text: {fileID: 1326846101}
+  height_gage: {fileID: 1410209756}
+  bottom_object: {fileID: 467385958}
+  goal_object: {fileID: 712650392}
   player_pos: {fileID: 1145604475}
   UI_pos: {fileID: 0}
   nowtime: 0

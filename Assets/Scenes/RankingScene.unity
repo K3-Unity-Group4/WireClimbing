@@ -4804,7 +4804,7 @@ GameObject:
   - component: {fileID: 1892314290}
   - component: {fileID: 1892314289}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: RankingManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4823,17 +4823,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timetexts:
-  - {fileID: 1211956233}
-  - {fileID: 1798349375}
-  - {fileID: 342332399}
-  - {fileID: 1622808969}
-  - {fileID: 222340314}
+  - {fileID: 1973739887}
+  - {fileID: 762814079}
+  - {fileID: 1680936930}
+  - {fileID: 917884631}
+  - {fileID: 1739575807}
   heighttexts:
-  - {fileID: 1560749121}
-  - {fileID: 480030938}
-  - {fileID: 138491037}
-  - {fileID: 1305952213}
-  - {fileID: 541703123}
+  - {fileID: 442044900}
+  - {fileID: 363869914}
+  - {fileID: 239857671}
+  - {fileID: 1104246888}
+  - {fileID: 796069203}
 --- !u!4 &1892314290
 Transform:
   m_ObjectHideFlags: 0

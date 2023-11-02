@@ -149,12 +149,12 @@ public class UIManager : MonoBehaviour
 
     public static float LoadNowTime()
     {
-        return PlayerPrefs.GetFloat("GoalTime", 0.0f);
+        return PlayerPrefs.GetFloat("GoalTime");
     }
 
     public static int LoadNowHeight()
     {
-        return PlayerPrefs.GetInt("NowHeight", 0);
+        return PlayerPrefs.GetInt("NowHeight");
     }
 
     public static List<float> LoadBestTimes()
