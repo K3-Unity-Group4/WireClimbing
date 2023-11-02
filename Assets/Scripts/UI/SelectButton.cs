@@ -13,6 +13,7 @@ public class SelectButton : MonoBehaviour
     [SerializeField] AudioClip transfer_se;
     [SerializeField] AudioClip select_se;
     [SerializeField] private OVRScreenFade screenfade;
+    [SerializeField] GameObject credit;
 
 
     private int focus_max;
@@ -76,8 +77,15 @@ public class SelectButton : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.Return) || OVRInput.GetDown(OVRInput.Button.One))
         {
-            PlaySound(audioSource, select_se);
-            StartCoroutine("PressAnimation");
+            if (select_texts[focus_now - 1].name == "CreditText")
+            {
+                credit.SetActive(true);
+                Invoke("CreditEnd", 5);
+            }
+            else {
+                PlaySound(audioSource, select_se);
+                StartCoroutine("PressAnimation");
+            }
         }
     }
 
@@ -137,5 +145,10 @@ public class SelectButton : MonoBehaviour
         aus.Stop(); // Šù‚ÉÄ¶’†‚Ìê‡AÄ¶‚ğ’â~
         aus.clip = se;
         aus.Play();
+    }
+
+    // CreditText‚ªŒÄ‚Ño‚³‚ê‚½‚Ìˆ—
+    void CreditEnd() {
+        credit.SetActive(false);
     }
 }
