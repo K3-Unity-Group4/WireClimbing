@@ -93,17 +93,17 @@ public class GameManager : MonoBehaviour
     //ゴール時の処理
     private void PlayerGoal()
     {
-        int goaltime = manager.nowtime;
-        int heightscore = (int)(manager.now_height / manager.goal_height * 100);
-        UIManager.SaveTimeAndScore(goaltime, heightscore); // タイムとスコアを記録
-        Debug.Log("ゴールに到達しました！ タイム: " + goaltime + " スコア: " + heightscore);
-        // ここでゴール達成の追加処理を実行できます
-        List<float> bestTimes = UIManager.LoadBestTimes();
-        List<int> scores = UIManager.LoadScores();
-        for (int i = 0; i < bestTimes.Count; i++)
-        {
-            Debug.Log("Rank " + (i + 1) + ": タイム - " + bestTimes[i] + " スコア - " + scores[i]);
-        }
+        //int goaltime = manager.nowtime;
+        //int heightscore = (int)(manager.now_height / manager.goal_height * 100);
+        //UIManager.SaveTimeAndScore(goaltime, heightscore); // タイムとスコアを記録
+        //Debug.Log("ゴールに到達しました！ タイム: " + goaltime + " スコア: " + heightscore);
+        //// ここでゴール達成の追加処理を実行できます
+        //List<float> bestTimes = UIManager.LoadBestTimes();
+        //List<int> scores = UIManager.LoadScores();
+        //for (int i = 0; i < bestTimes.Count; i++)
+        //{
+        //    Debug.Log("Rank " + (i + 1) + ": タイム - " + bestTimes[i] + " スコア - " + scores[i]);
+        //}
         StartCoroutine("ChangeToResultScene");
     }
 

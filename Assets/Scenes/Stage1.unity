@@ -311,7 +311,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 1795280365}
-  manager: {fileID: 0}
+  manager: {fileID: 173995175}
   goalText: {fileID: 477565020}
 --- !u!23 &8823654
 MeshRenderer:
@@ -8931,7 +8931,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1215148571
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9819,6 +9819,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotateAngle: -90
   world: {fileID: 1273046801}
+  playerTransform: {fileID: 1145604475}
 --- !u!4 &1397247059
 Transform:
   m_ObjectHideFlags: 0
@@ -11590,7 +11591,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1747655278
 RectTransform:
   m_ObjectHideFlags: 0

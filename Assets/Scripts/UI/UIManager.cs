@@ -63,13 +63,13 @@ public class UIManager : MonoBehaviour
     }
     void PauseManager()    //UI管理
     {
-        if (pausecanvas.activeSelf == false && (Input.GetKeyDown(KeyCode.E)|| OVRInput.Get(OVRInput.Button.Two)) && iskey == true)   //escapeボタンでポーズ　クエストボタンにする
+        if (pausecanvas.activeSelf == false && (Input.GetKeyDown(KeyCode.E)|| OVRInput.GetDown(OVRInput.Button.Two)) && iskey == true)   //escapeボタンでポーズ　クエストボタンにする
         {
             Time.timeScale = 0f;
             pausecanvas.SetActive(true);
             
         }
-        else if (pausecanvas.activeSelf == true && (Input.GetKeyDown(KeyCode.E) || OVRInput.Get(OVRInput.Button.Two)) && iskey == true)  //マウス右ボタンでポーズを閉じる　クエストボタンにする
+        else if (pausecanvas.activeSelf == true && (Input.GetKeyDown(KeyCode.E) || OVRInput.GetDown(OVRInput.Button.Two)) && iskey == true)  //マウス右ボタンでポーズを閉じる　クエストボタンにする
         {
             Time.timeScale = 1f;
             pausecanvas.SetActive(false);

@@ -128,8 +128,9 @@ public class SelectButton : MonoBehaviour
                 //Debug.Log("stage1");
                 break;
             case "Stage3Text":
-                //SceneManager.LoadScene("Stage3Scene");
+                SceneManager.LoadScene("StageSelectScene");
                 Debug.Log("stage3");
+                Time.timeScale = 1f;
                 break;
             case "RePlayText":
                 SceneManager.LoadScene(UIManager.prestagename);
