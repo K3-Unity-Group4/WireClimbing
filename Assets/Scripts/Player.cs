@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.XR;
 
@@ -9,6 +10,9 @@ public class Player : MonoBehaviour
     [SerializeField] private float speed = 5f;
     [SerializeField] Transform cam;
     [SerializeField] Transform camVR;
+
+    [SerializeField] private AudioSource walk;
+    private bool walkBool;
     
     void Start()
     {
@@ -32,7 +36,18 @@ public class Player : MonoBehaviour
         //HMDのY軸の角度取得
         Vector3 changeRotation = new Vector3(0, InputTracking.GetLocalRotation(XRNode.Head).eulerAngles.y, 0);
         //OVRCameraRigの位置変更
-        this.transform.position += this.transform.rotation * (Quaternion.Euler(changeRotation) * changePosition * 0.08f);
+        Vector3 notZero = this.transform.rotation * (Quaternion.Euler(changeRotation) * changePosition * 0.08f);
+        if (notZero != Vector3.zero && !walkBool)
+        {
+            walk.Play();
+            walkBool = true;
+            this.transform.position += notZero;
+        }
+        else
+        {
+            walk.Stop();
+            walkBool = false;
+        }
     }
     
     private Vector3 GetMoveVector()

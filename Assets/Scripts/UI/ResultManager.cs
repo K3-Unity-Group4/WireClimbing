@@ -10,11 +10,11 @@ public class ResultManager : MonoBehaviour
 
     private void Start()
     {
-        // GoalTime‚ğæ“¾
+        // GoalTimeã‚’å–å¾—
         float nowtime = UIManager.LoadNowTime();
         int nowheight = UIManager.LoadNowHeight();
 
-        // GoalTime‚ğ•\¦
+        // GoalTimeã‚’è¡¨ç¤º
         timetext.text = "Time: " + nowtime.ToString() + " s";
         heighttext.text = "Height: " + nowtime.ToString() + " %";
 

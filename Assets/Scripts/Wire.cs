@@ -26,11 +26,14 @@ public class Wire : MonoBehaviour
     private Vector3 localHitPoint;
     private Vector3 worldPoint;
     [SerializeField] private GameObject wire;
+    private float resetTime = 0;
 
     // [SerializeField] private TextMeshProUGUI ui;
 
     [SerializeField] private GameObject accelerationObject;
     private ParticleSystem acceleration;
+
+    [SerializeField] private AudioSource shashutu;
 
     void Start()
     {
@@ -48,28 +51,30 @@ public class Wire : MonoBehaviour
         }
 
         Ray ray = new Ray(anchor.position, anchor.forward);
-        
-        if(Physics.Raycast(ray, out hit, 20))
+
+        if (Physics.Raycast(ray, out hit, 20))
         {
             GameObject target = hit.collider.gameObject;
 
             if (OVRInput.GetDown(OVRInput.RawButton.RIndexTrigger))
             {
+                shashutu.Play();
+
                 attached = true;
                 rb.isKinematic = true;
-                
+
                 gameObject.transform.parent = hit.collider.transform;
                 localHitPoint = hit.transform.InverseTransformPoint(hit.point);
                 hitObj = hit.transform;
                 worldPoint = hit.transform.TransformPoint(localHitPoint) - hitObj.position;
                 // RaycastHitpoint = hit.point;
-                
+
                 wire.SetActive(true);
                 _player.enabled = false;
                 accelerationObject.SetActive(true);
             }
         }
-        
+
         if (OVRInput.Get(OVRInput.RawButton.RIndexTrigger))
         {
             raycastHitpoint = hitObj.position + worldPoint;
@@ -84,14 +89,14 @@ public class Wire : MonoBehaviour
             var heading = raycastHitpoint - transform.position;
             var distance = heading.magnitude;
             var direction = heading / distance;
-            if(power) rb.velocity = direction * momentum;
+            if (power) rb.velocity = direction * momentum;
             power = true;
             wire.SetActive(false);
             _player.enabled = true;
             if (Vector3.Distance(raycastHitpoint, transform.position) == 0) momentum = 0;
             accelerationObject.SetActive(false);
         }
-        
+
         // if (OVRInput.GetDown(OVRInput.Button.Two)) ui.text = "押された";
 
         //Debug.Log(hit.distance);
@@ -101,14 +106,14 @@ public class Wire : MonoBehaviour
             {
                 attached = true;
                 rb.isKinematic = true;
-                
+
                 gameObject.transform.parent = hit.collider.transform;
                 localHitPoint = hit.transform.InverseTransformPoint(hit.point);
                 hitObj = hit.transform;
                 worldPoint = hit.transform.TransformPoint(localHitPoint) - hitObj.position;
                 // Debug.Log(worldPoint);
                 // RaycastHitpoint = hit.point;
-                
+
                 wire.SetActive(true);
                 _player.enabled = false;
                 accelerationObject.SetActive(true);
@@ -129,14 +134,14 @@ public class Wire : MonoBehaviour
             var heading = raycastHitpoint - transform.position;
             var distance = heading.magnitude;
             var direction = heading / distance;
-            if(power) rb.velocity = direction * momentum;
+            if (power) rb.velocity = direction * momentum;
             power = true;
             wire.SetActive(false);
             _player.enabled = true;
             if (Vector3.Distance(raycastHitpoint, transform.position) == 0) momentum = 0;
             accelerationObject.SetActive(false);
         }
-        
+
         if (attached)
         {
             momentum += Time.deltaTime * speed;
@@ -145,9 +150,9 @@ public class Wire : MonoBehaviour
             {
                 momentum = 0;
                 accelerationObject.SetActive(false);
-                
+
                 // 右コントローラのAボタンを押した場合
-                if(OVRInput.GetDown(OVRInput.RawButton.RHandTrigger))
+                if (OVRInput.GetDown(OVRInput.RawButton.RHandTrigger))
                 {
                     attached = false;
                     rb.isKinematic = false;
@@ -158,9 +163,9 @@ public class Wire : MonoBehaviour
                     accelerationObject.SetActive(false);
                     rb.AddForce(0, 500f, 0);
                 }
-                
+
                 // 右コントローラのAボタンを押した場合
-                if(Input.GetMouseButtonDown(1))
+                if (Input.GetMouseButtonDown(1))
                 {
                     attached = false;
                     rb.isKinematic = false;
@@ -176,15 +181,31 @@ public class Wire : MonoBehaviour
             }
             else transform.position = Vector3.MoveTowards(transform.position, raycastHitpoint, step);
         }
+
         if (!attached && momentum >= 0)
         {
             momentum -= Time.deltaTime * 5;
             step = 0;
         }
+
         if (momentum <= 0)
         {
             momentum = 0;
             step = 0;
+        }
+
+
+        // ランキング削除
+        if (OVRInput.Get(OVRInput.RawButton.LThumbstick) && OVRInput.Get(OVRInput.RawButton.LThumbstick))
+        {
+            resetTime += Time.deltaTime;
+            if (resetTime >= 20)
+            {
+                UIManager.ResetData();
+                resetTime = 0;
+            }
+
+            if (OVRInput.GetUp(OVRInput.RawButton.LThumbstick) || OVRInput.GetUp(OVRInput.RawButton.LThumbstick)) resetTime = 0;
         }
     }
 }
