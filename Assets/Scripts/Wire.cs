@@ -53,6 +53,8 @@ public class Wire : MonoBehaviour
         {
             GameObject target = hit.collider.gameObject;
 
+            
+
             if (OVRInput.GetDown(OVRInput.RawButton.B))
             {
                 attached = true;
