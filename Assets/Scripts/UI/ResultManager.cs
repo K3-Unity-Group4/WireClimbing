@@ -1,10 +1,12 @@
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
+
+
 public class ResultManager : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI timetext;
     [SerializeField] TextMeshProUGUI heighttext;
+  
 
     private void Start()
     {

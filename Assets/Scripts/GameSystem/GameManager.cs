@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject fallDetectionPlane;
     [SerializeField] private OVRScreenFade screenfade;
     [SerializeField] private float fadetime;
-
+    [SerializeField]UIManager manager;
 
     public bool playerIsFall = false;
     public bool playerIsGoal = false;
@@ -89,7 +89,18 @@ public class GameManager : MonoBehaviour
     //ゴール時の処理
     private void PlayerGoal()
     {
-        StartCoroutine("ChangeToRankingScene");
+        int goaltime = manager.nowtime;
+        int heightscore = (int)(manager.now_height / manager.goal_height * 100);
+        UIManager.SaveTimeAndScore(goaltime, heightscore); // タイムとスコアを記録
+        Debug.Log("ゴールに到達しました！ タイム: " + goaltime + " スコア: " + heightscore);
+        // ここでゴール達成の追加処理を実行できます
+        List<float> bestTimes = UIManager.LoadBestTimes();
+        List<int> scores = UIManager.LoadScores();
+        for (int i = 0; i < bestTimes.Count; i++)
+        {
+            Debug.Log("Rank " + (i + 1) + ": タイム - " + bestTimes[i] + " スコア - " + scores[i]);
+        }
+        StartCoroutine("ChangeToResultScene");
     }
 
     //ゴール時の処理(tutriale用、後で書き直します)
@@ -107,12 +118,12 @@ public class GameManager : MonoBehaviour
         screenfade.FadeOn(1, 0, 0.5f); //フェードイン
     }
 
-    private IEnumerator ChangeToRankingScene()
+    private IEnumerator ChangeToResultScene()
     {
         yield return new WaitForSeconds(2.0f);
         screenfade.FadeOn(0, 1, 1.5f); //フェードアウト
         yield return new WaitForSeconds(2.0f);
-        SceneManager.LoadScene("RankingScene");
+        SceneManager.LoadScene("ResultScene");
     }
 
     private IEnumerator ChangeToStageSelectScene()
