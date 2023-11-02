@@ -83,11 +83,15 @@ public class Player : MonoBehaviour
         transform.position += moveDelta;
     }
 
-    private void OnTiggerStay(Collider col)
+
+    private void OnTriggerEnter(Collider col)
     {
+        Debug.Log("iii");
         if (col.gameObject.CompareTag("Block"))
         {
-            gameObject.transform.parent = col.gameObject.transform;
+            Debug.Log("aaa");
+            //gameObject.transform.parent = col.gameObject.transform;
+            transform.SetParent(col.transform);
         }
     }
     
@@ -95,7 +99,8 @@ public class Player : MonoBehaviour
     {
         if (col.gameObject.CompareTag("Block"))
         {
-            gameObject.transform.parent = null;
+            //gameObject.transform.parent = null;
+            transform.SetParent(null);
         }
     }
 }
