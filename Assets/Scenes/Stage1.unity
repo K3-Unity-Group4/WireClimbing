@@ -271,7 +271,7 @@ Transform:
   m_GameObject: {fileID: 8823650}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 23.7443, y: 91.55, z: 17.13}
+  m_LocalPosition: {x: 23.7443, y: 11.55, z: 7.13}
   m_LocalScale: {x: 1.7593931, y: 1, z: 1.0077249}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -311,7 +311,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 1795280365}
-  manager: {fileID: 0}
+  manager: {fileID: 173995175}
   goalText: {fileID: 477565020}
 --- !u!23 &8823654
 MeshRenderer:
@@ -977,7 +977,7 @@ MonoBehaviour:
   nowtime_text: {fileID: 1509616816}
   fasttime_text: {fileID: 1366668246}
   height_gage: {fileID: 1721488907}
-  bottom_object: {fileID: 1541926856}
+  bottom_object: {fileID: 467385958}
   goal_object: {fileID: 8823650}
   player_pos: {fileID: 1145604475}
   UI_pos: {fileID: 0}
@@ -9819,6 +9819,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotateAngle: -90
   world: {fileID: 1273046801}
+  playerTransform: {fileID: 0}
 --- !u!4 &1397247059
 Transform:
   m_ObjectHideFlags: 0
