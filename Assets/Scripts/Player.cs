@@ -83,7 +83,7 @@ public class Player : MonoBehaviour
         transform.position += moveDelta;
     }
 
-    private void OnTiggerStay(Collider col)
+    private void OnTriggerStay(Collider col)
     {
         if (col.gameObject.CompareTag("Block"))
         {
