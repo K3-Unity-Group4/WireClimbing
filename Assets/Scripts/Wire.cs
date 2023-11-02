@@ -33,7 +33,7 @@ public class Wire : MonoBehaviour
     [SerializeField] private GameObject accelerationObject;
     private ParticleSystem acceleration;
 
-    [SerializeField] private AudioSource shashutu;
+    [SerializeField] private AudioClip shashutu;
 
     void Start()
     {
@@ -58,7 +58,6 @@ public class Wire : MonoBehaviour
 
             if (OVRInput.GetDown(OVRInput.RawButton.RIndexTrigger))
             {
-                shashutu.Play();
 
                 attached = true;
                 rb.isKinematic = true;

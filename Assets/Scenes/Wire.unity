@@ -12249,6 +12249,7 @@ MonoBehaviour:
   speed: 5
   cam: {fileID: 608894047}
   camVR: {fileID: 1752250710}
+  walk: {fileID: 8300000, guid: 90fec6bc6ab63f94195ed680fd6c8551, type: 3}
 --- !u!114 &1848374447
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12288,8 +12289,8 @@ MonoBehaviour:
   speedAnchor: 2
   raycastHitpoint: {x: 0, y: 0, z: 0}
   wire: {fileID: 635559259}
-  ui: {fileID: 1947527318}
   accelerationObject: {fileID: 1099103919}
+  shashutu: {fileID: 8300000, guid: 320a4b322a6ec714d9175df0ec0b67a7, type: 3}
 --- !u!54 &1848374449
 Rigidbody:
   m_ObjectHideFlags: 0
