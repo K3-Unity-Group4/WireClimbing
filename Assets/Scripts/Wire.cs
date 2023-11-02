@@ -27,7 +27,7 @@ public class Wire : MonoBehaviour
     private Vector3 worldPoint;
     [SerializeField] private GameObject wire;
 
-    [SerializeField] private TextMeshProUGUI ui;
+    // [SerializeField] private TextMeshProUGUI ui;
 
     [SerializeField] private GameObject accelerationObject;
     private ParticleSystem acceleration;
@@ -40,8 +40,8 @@ public class Wire : MonoBehaviour
 
     void Update()
     {
-        Vector2 vectorR = OVRInput.Get(OVRInput.RawAxis2D.RThumbstick);
-        transform.eulerAngles += new Vector3(speedAnchor * vectorR.y, speedAnchor * vectorR.x, 0);
+        //Vector2 vectorR = OVRInput.Get(OVRInput.RawAxis2D.RThumbstick);
+        //transform.eulerAngles += new Vector3(speedAnchor * vectorR.y, speedAnchor * vectorR.x, 0);
         if (OVRInput.GetDown(OVRInput.RawButton.RThumbstick))
         {
             transform.rotation = Quaternion.Euler(0f, transform.rotation.eulerAngles.y, 0f);
@@ -53,9 +53,7 @@ public class Wire : MonoBehaviour
         {
             GameObject target = hit.collider.gameObject;
 
-            
-
-            if (OVRInput.GetDown(OVRInput.RawButton.B))
+            if (OVRInput.GetDown(OVRInput.RawButton.RIndexTrigger))
             {
                 attached = true;
                 rb.isKinematic = true;
@@ -72,12 +70,12 @@ public class Wire : MonoBehaviour
             }
         }
         
-        if (OVRInput.Get(OVRInput.RawButton.B))
+        if (OVRInput.Get(OVRInput.RawButton.RIndexTrigger))
         {
             raycastHitpoint = hitObj.position + worldPoint;
         }
 
-        if (OVRInput.GetUp(OVRInput.RawButton.B))
+        if (OVRInput.GetUp(OVRInput.RawButton.RIndexTrigger))
         {
             attached = false;
             rb.isKinematic = false;
@@ -149,7 +147,7 @@ public class Wire : MonoBehaviour
                 accelerationObject.SetActive(false);
                 
                 // 右コントローラのAボタンを押した場合
-                if(OVRInput.GetDown(OVRInput.RawButton.A))
+                if(OVRInput.GetDown(OVRInput.RawButton.RHandTrigger))
                 {
                     attached = false;
                     rb.isKinematic = false;
