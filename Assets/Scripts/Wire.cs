@@ -40,9 +40,13 @@ public class Wire : MonoBehaviour
 
     void Update()
     {
-        Vector2 vectorL = OVRInput.Get(OVRInput.RawAxis2D.LThumbstick);
-        transform.eulerAngles += new Vector3(-speedAnchor * vectorL.y, speedAnchor * vectorL.x, 0);
-        
+        Vector2 vectorR = OVRInput.Get(OVRInput.RawAxis2D.RThumbstick);
+        transform.eulerAngles += new Vector3(speedAnchor * vectorR.y, speedAnchor * vectorR.x, 0);
+        if (OVRInput.GetDown(OVRInput.RawButton.RThumbstick))
+        {
+            transform.rotation = Quaternion.Euler(0f, transform.rotation.eulerAngles.y, 0f);
+        }
+
         Ray ray = new Ray(anchor.position, anchor.forward);
         
         if(Physics.Raycast(ray, out hit, 20))
