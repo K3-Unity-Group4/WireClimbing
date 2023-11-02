@@ -12,6 +12,7 @@ public class SelectButton : MonoBehaviour
     [SerializeField] AudioSource audioSource;
     [SerializeField] AudioClip transfer_se;
     [SerializeField] AudioClip select_se;
+    [SerializeField] private OVRScreenFade screenfade;
 
 
     private int focus_max;
@@ -21,6 +22,7 @@ public class SelectButton : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Time.timeScale = 1;
         focus_max = select_texts.Count;
         focus_now = 1;
         foreach(GameObject selecttext in select_texts)
@@ -34,8 +36,8 @@ public class SelectButton : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Joyスティックに変更予定
-        if (Input.GetKeyDown(KeyCode.A))
+        //Joyスティックに変更
+        if (Input.GetKeyDown(KeyCode.A) || OVRInput.Get(OVRInput.Button.Four))
         {
             texts_animator[focus_now - 1].SetBool("IsSelect", false);
             focus_old = focus_now;
@@ -53,7 +55,7 @@ public class SelectButton : MonoBehaviour
             PlaySound(audioSource, transfer_se);
             AddProcess();
         }
-        if (Input.GetKeyDown(KeyCode.B))
+        if (Input.GetKeyDown(KeyCode.B) || OVRInput.Get(OVRInput.Button.Three))
         {
             texts_animator[focus_now - 1].SetBool("IsSelect", false);
             focus_old = focus_now;
@@ -72,7 +74,7 @@ public class SelectButton : MonoBehaviour
             AddProcess();
         }
         
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.Return) || OVRInput.Get(OVRInput.Button.One))
         {
             PlaySound(audioSource, select_se);
             StartCoroutine("PressAnimation");
@@ -82,9 +84,12 @@ public class SelectButton : MonoBehaviour
     protected virtual IEnumerator PressAnimation()
     {
         texts_animator[focus_now - 1].SetBool("IsPress", true);
+        screenfade.FadeOn(0, 1, 1.5f); //フェードアウト
+        Time.timeScale = 1f;
         yield return new WaitForEndOfFrame();
         yield return new WaitWhile(() => texts_animator[focus_now-1].GetCurrentAnimatorStateInfo(0).normalizedTime < 1f);
         texts_animator[focus_now - 1].SetBool("IsPress", false);
+        Time.timeScale = 0f;
         switch (select_texts[focus_now - 1].name)
         {
             case "StartText":
@@ -107,19 +112,19 @@ public class SelectButton : MonoBehaviour
                 break;
             case "Stage1Text":
                 //SceneManager.LoadScene("Stage1Scene");
-                SceneManager.LoadScene("Wire");
-                Debug.Log("Stage1");
+                SceneManager.LoadScene("Turtrial");
+                //Debug.Log("Stage1");
                 break;
             case "Stage2Text":
-                //SceneManager.LoadScene("Stage2Scene");
-                Debug.Log("stage2");
+                SceneManager.LoadScene("Stage1");
+                //Debug.Log("stage1");
                 break;
             case "Stage3Text":
                 //SceneManager.LoadScene("Stage3Scene");
                 Debug.Log("stage3");
                 break;
             case "RePlayText":
-                //SceneManager.LoadScene("Scene");
+                SceneManager.LoadScene(UIManager.prestagename);
                 break;
         }
     }
