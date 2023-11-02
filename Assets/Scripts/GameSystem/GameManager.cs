@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private OVRScreenFade screenfade;
     [SerializeField] private float fadetime;
     [SerializeField]UIManager manager;
+    [SerializeField] private WorldRotate worldRotate;
 
     public bool playerIsFall = false;
     public bool playerIsGoal = false;
@@ -21,7 +22,8 @@ public class GameManager : MonoBehaviour
     public bool checkPoint_3 = false;
 
     public float heightOfFallDetection = -10;
-    public Vector3 playerPositionCheckPoint;　//落下後に戻る座標
+    public Vector3 playerPositionCheckPoint; //落下後に戻る座標
+    public Vector3 playerRotationCheckPoint;　//落下後に戻る角度
     private float maxHeightOfPlayer;
 
     //[SerializeField] private float offsetFallDetectionPlane = -10;
@@ -31,6 +33,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         playerPositionCheckPoint = new Vector3(0f, 1.26f, 0f);
+        playerPositionCheckPoint = new Vector3(0f, 0f, 0f);
         maxHeightOfPlayer = player.transform.position.y;
         screenfade.fadeTime = fadetime;
     }
@@ -73,6 +76,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    //落下判定平面の高さを移動
     private void MoveFallDetectionPlane()
     {
         Vector3 pos = fallDetectionPlane.transform.position;
@@ -80,7 +84,7 @@ public class GameManager : MonoBehaviour
         fallDetectionPlane.transform.position = movedPosition;
     }
 
-    //Player落下時の処理
+    //Player落下時の処理を呼び出し
     private void PlayerFall()
     {
         StartCoroutine("RestartCheckPoint");
@@ -109,11 +113,14 @@ public class GameManager : MonoBehaviour
         StartCoroutine("ChangeToStageSelectScene");
     }
 
+    //落下時の復帰処理
     private IEnumerator RestartCheckPoint()
     {
+        Debug.Log("a");
         screenfade.FadeOn(0, 1, 1.0f); //フェードアウト
         yield return new WaitForSeconds(1.0f);
-        player.transform.position = playerPositionCheckPoint; //セーブポイントへ移動
+        player.transform.position = Quaternion.Euler(0, worldRotate.rotateAngle, 0) * playerPositionCheckPoint; //チェックポイントへ移動
+        player.transform.rotation = Quaternion.Euler(playerRotationCheckPoint); //角度も調整
         yield return new WaitForSeconds(0.5f);
         screenfade.FadeOn(1, 0, 0.5f); //フェードイン
     }
