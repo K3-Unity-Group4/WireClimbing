@@ -426,6 +426,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc7416b17adad7640aca6dc8f9fe0b99, type: 3}
+--- !u!1 &471208283 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3691728134068523240, guid: bc7416b17adad7640aca6dc8f9fe0b99, type: 3}
+  m_PrefabInstance: {fileID: 467334697}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &506085325
 GameObject:
   m_ObjectHideFlags: 0
@@ -682,11 +687,11 @@ MonoBehaviour:
   audioSource: {fileID: 980110782}
   transfer_se: {fileID: 8300000, guid: b61aef3ea0ff60c47a71e065f3d8be44, type: 3}
   select_se: {fileID: 8300000, guid: 9b1d90695eb43fe499a889ce1ade5541, type: 3}
+  screenfade: {fileID: 1352915359}
   screen_objects:
-  - {fileID: 1789380256}
-  - {fileID: 899676854}
+  - {fileID: 471208283}
+  - {fileID: 1109999999}
   - {fileID: 1606873510}
-  - {fileID: 2146684463}
 --- !u!1 &899676854
 GameObject:
   m_ObjectHideFlags: 0
@@ -705,7 +710,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &899676855
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -865,6 +870,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1109999999 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3691728134068523240, guid: bc7416b17adad7640aca6dc8f9fe0b99, type: 3}
+  m_PrefabInstance: {fileID: 2132353454}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1150049289
 GameObject:
   m_ObjectHideFlags: 0
@@ -1026,7 +1036,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 487254, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 760853476}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 100002, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1352915359}
   m_SourcePrefab: {fileID: 100100000, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
 --- !u!4 &1352915354 stripped
 Transform:
@@ -1048,6 +1061,27 @@ Camera:
   m_CorrespondingSourceObject: {fileID: 2037080, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
   m_PrefabInstance: {fileID: 1352915353}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1352915358 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100002, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
+  m_PrefabInstance: {fileID: 1352915353}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1352915359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1352915358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df8e1d778abf442e4bec449c360e9e1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeTime: 2
+  fadeColor: {r: 1, g: 1, b: 1, a: 1}
+  fadeOnStart: 1
+  renderQueue: 5000
 --- !u!1 &1383415548
 GameObject:
   m_ObjectHideFlags: 0
@@ -1244,7 +1278,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &1606873511
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1566,7 +1600,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &1789380257
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1740,7 +1774,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &2146684464
 BoxCollider:
   m_ObjectHideFlags: 0

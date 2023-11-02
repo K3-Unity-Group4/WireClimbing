@@ -37,7 +37,7 @@ public class SelectButton : MonoBehaviour
     void Update()
     {
         //Joyスティックに変更
-        if (Input.GetKeyDown(KeyCode.A) || OVRInput.Get(OVRInput.Button.Four))
+        if (Input.GetKeyDown(KeyCode.A) || OVRInput.GetDown(OVRInput.Button.Three))
         {
             texts_animator[focus_now - 1].SetBool("IsSelect", false);
             focus_old = focus_now;
@@ -55,7 +55,7 @@ public class SelectButton : MonoBehaviour
             PlaySound(audioSource, transfer_se);
             AddProcess();
         }
-        if (Input.GetKeyDown(KeyCode.B) || OVRInput.Get(OVRInput.Button.Three))
+        if (Input.GetKeyDown(KeyCode.B) || OVRInput.GetDown(OVRInput.Button.Four))
         {
             texts_animator[focus_now - 1].SetBool("IsSelect", false);
             focus_old = focus_now;
@@ -74,7 +74,7 @@ public class SelectButton : MonoBehaviour
             AddProcess();
         }
         
-        if (Input.GetKeyDown(KeyCode.Return) || OVRInput.Get(OVRInput.Button.One))
+        if (Input.GetKeyDown(KeyCode.Return) || OVRInput.GetDown(OVRInput.Button.One))
         {
             PlaySound(audioSource, select_se);
             StartCoroutine("PressAnimation");
@@ -112,7 +112,7 @@ public class SelectButton : MonoBehaviour
                 break;
             case "Stage1Text":
                 //SceneManager.LoadScene("Stage1Scene");
-                SceneManager.LoadScene("Turtrial");
+                SceneManager.LoadScene("Tutorial");
                 //Debug.Log("Stage1");
                 break;
             case "Stage2Text":

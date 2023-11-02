@@ -971,7 +971,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cafbd1a4f495b748862c7e4df39c128, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pausecanvas: {fileID: 1631164010}
+  pausecanvas: {fileID: 1747655277}
   stage_text: {fileID: 805498408}
   height_text: {fileID: 37334381}
   nowtime_text: {fileID: 1509616816}
@@ -1885,15 +1885,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: GOAL!!
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
+  m_sharedMaterial: {fileID: 2147374, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4283651045
+  m_fontColor: {r: 0.8962264, g: 0.32551616, b: 0.32551616, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -8894,7 +8894,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1215148571
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8945,7 +8945,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 1
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 1966625361}
   m_PlaneDistance: 0.6
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -8977,7 +8977,7 @@ RectTransform:
   - {fileID: 1371685872}
   - {fileID: 1553880472}
   - {fileID: 1747655278}
-  m_Father: {fileID: 1273046802}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -9125,7 +9125,6 @@ Transform:
   - {fileID: 695734062}
   - {fileID: 477565021}
   - {fileID: 1963758066}
-  - {fileID: 1215148574}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!1 &1277875864
@@ -9711,7 +9710,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 719, y: -200}
+  m_AnchoredPosition: {x: 819, y: 0}
   m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1371685873
@@ -11137,6 +11136,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4539007161550994331, guid: ccd6f019bd2393d4db2656ad71779c92, type: 3}
+      propertyPath: screenfade
+      value: 
+      objectReference: {fileID: 1966625360}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -11504,7 +11507,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1747655278
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11514,7 +11517,7 @@ RectTransform:
   m_GameObject: {fileID: 1747655277}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 87039796}
@@ -11523,8 +11526,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 67.329956}
+  m_SizeDelta: {x: 0, y: 134.66006}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1747655279
 MonoBehaviour:
@@ -11927,6 +11930,7 @@ MonoBehaviour:
   fallDetectionPlane: {fileID: 1963758062}
   screenfade: {fileID: 1966625360}
   fadetime: 0.5
+  manager: {fileID: 173995175}
   playerIsFall: 0
   playerIsGoal: 0
   playerIsGoalTutriale: 0
@@ -12365,6 +12369,11 @@ MonoBehaviour:
   fadeColor: {r: 0.9339623, g: 0.9339623, b: 0.9339623, a: 1}
   fadeOnStart: 1
   renderQueue: 5000
+--- !u!20 &1966625361 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 2037080, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
+  m_PrefabInstance: {fileID: 1788895786}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2116967017
 GameObject:
   m_ObjectHideFlags: 0
@@ -12559,4 +12568,5 @@ SceneRoots:
   - {fileID: 1145604475}
   - {fileID: 1710925597}
   - {fileID: 1165464533}
+  - {fileID: 1215148574}
   - {fileID: 1273046802}

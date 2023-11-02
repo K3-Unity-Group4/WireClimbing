@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour
         //Œã‚Å‘‚«’¼‚·
         if (playerIsGoalTutriale)
         {
-            PlayerGoalTutriale();
+            PlayerGoalTutorial();
             playerIsGoalTutriale = false;
         }
     }
@@ -104,7 +104,7 @@ public class GameManager : MonoBehaviour
     }
 
     //ƒS[ƒ‹‚Ìˆ—(tutriale—pAŒã‚Å‘‚«’¼‚µ‚Ü‚·)
-    private void PlayerGoalTutriale()
+    private void PlayerGoalTutorial()
     {
         StartCoroutine("ChangeToStageSelectScene");
     }
