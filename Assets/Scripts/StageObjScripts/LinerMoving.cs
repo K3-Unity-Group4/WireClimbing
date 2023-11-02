@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class LinerMoving : MonoBehaviour
 {
-    private Rigidbody object_rb;
+    private Transform object_rb;
     public float moveTime = 5.0f; //Anchor間の移動時間
     public float defoltStopTime = 2.0f;　 //Anchorでの停止時間
     public bool isSmoothMove = true;
@@ -21,10 +21,10 @@ public class LinerMoving : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        object_rb = GetComponent<Rigidbody>();
+        object_rb = GetComponent<Transform>();
         nowAnchorIndex = 0;
         object_rb.position = AnchorPoints[0].transform.position;;
-        Debug.Log(object_rb.position);
+        //Debug.Log(object_rb.position);
     }
 
     // Update is called once per frame
@@ -57,15 +57,16 @@ public class LinerMoving : MonoBehaviour
                 }
                 Vector3 toVector = Vector3.Lerp(nowPosition, nextPosition, Mathf.SmoothStep(0, 1, timer / moveTime));
                 //Vector3 rotateVector = Vector3.Lerp(AnchorPoints[nowAnchorIndex].transform.localEulerAngles, nextRotation, Mathf.SmoothStep(0, 1, timer / moveTime));
-                
+
                 //次のAnchorPointへ移動
-                object_rb.MovePosition(toVector);
+                //object_rb.MovePosition(toVector);
+                object_rb.position = (toVector);
                 //transform.localEulerAngles = rotateVector;
             }
             //目標AnchorPointに到着
             else
             {
-                object_rb.MovePosition(nextPosition);
+                object_rb.position = (nextPosition);
                 //現在のAnchorPointを更新
                 if (!isReturning)
                 {

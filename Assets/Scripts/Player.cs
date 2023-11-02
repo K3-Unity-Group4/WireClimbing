@@ -68,7 +68,7 @@ public class Player : MonoBehaviour
         transform.position += moveDelta;
     }
 
-    private void OnCollisionStay(Collision col)
+    private void OnTiggerStay(Collider col)
     {
         if (col.gameObject.CompareTag("Block"))
         {
@@ -76,7 +76,7 @@ public class Player : MonoBehaviour
         }
     }
     
-    private void OnCollisionExit(Collision col)
+    private void OnTriggerExit(Collider col)
     {
         if (col.gameObject.CompareTag("Block"))
         {
