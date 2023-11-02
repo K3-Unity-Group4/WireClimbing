@@ -41,7 +41,6 @@ public class Player : MonoBehaviour
         {
             walk.Play();
             walkBool = true;
-            this.transform.position += notZero;
         }
         else
         {

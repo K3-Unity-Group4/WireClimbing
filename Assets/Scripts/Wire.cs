@@ -34,6 +34,7 @@ public class Wire : MonoBehaviour
     private ParticleSystem acceleration;
 
     [SerializeField] private AudioSource shashutu;
+    [SerializeField] private AudioClip shashutuSE;
 
     void Start()
     {
@@ -58,7 +59,7 @@ public class Wire : MonoBehaviour
 
             if (OVRInput.GetDown(OVRInput.RawButton.RIndexTrigger))
             {
-                shashutu.Play();
+                shashutu.PlayOneShot(shashutuSE);
 
                 attached = true;
                 rb.isKinematic = true;
@@ -106,6 +107,7 @@ public class Wire : MonoBehaviour
             {
                 attached = true;
                 rb.isKinematic = true;
+                shashutu.PlayOneShot(shashutuSE);
 
                 gameObject.transform.parent = hit.collider.transform;
                 localHitPoint = hit.transform.InverseTransformPoint(hit.point);
