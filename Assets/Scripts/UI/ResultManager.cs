@@ -16,7 +16,7 @@ public class ResultManager : MonoBehaviour
 
         // GoalTimeを表示
         timetext.text = "Time: " + nowtime.ToString() + " s";
-        heighttext.text = "Height: " + nowtime.ToString() + " %";
+        heighttext.text = "Height: " + nowheight.ToString() + " %";
 
     }
 }
