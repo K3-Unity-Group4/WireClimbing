@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using UnityEditor.PackageManager;
+//using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -26,7 +26,7 @@ public class Wire : MonoBehaviour
     private Vector3 localHitPoint;
     private Vector3 worldPoint;
     [SerializeField] private GameObject wire;
-    private float resetTime = 0;
+    
 
     // [SerializeField] private TextMeshProUGUI ui;
 
@@ -196,18 +196,5 @@ public class Wire : MonoBehaviour
             step = 0;
         }
 
-
-        // ランキング削除
-        if (OVRInput.Get(OVRInput.RawButton.LThumbstick) && OVRInput.Get(OVRInput.RawButton.LThumbstick))
-        {
-            resetTime += Time.deltaTime;
-            if (resetTime >= 20)
-            {
-                UIManager.ResetData();
-                resetTime = 0;
-            }
-
-            if (OVRInput.GetUp(OVRInput.RawButton.LThumbstick) || OVRInput.GetUp(OVRInput.RawButton.LThumbstick)) resetTime = 0;
-        }
     }
 }

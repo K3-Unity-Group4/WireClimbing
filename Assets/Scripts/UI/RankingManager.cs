@@ -7,6 +7,7 @@ public class RankingManager : MonoBehaviour
 {
     [SerializeField] List<TextMeshProUGUI> timetexts;
     [SerializeField] List<TextMeshProUGUI> heighttexts;
+    private float resetTime = 0;
 
     private void Start()
     {
@@ -21,5 +22,21 @@ public class RankingManager : MonoBehaviour
 
         }
 
+    }
+
+    private void Update()
+    {
+        // ƒ‰ƒ“ƒLƒ“ƒOíœ
+        if (OVRInput.Get(OVRInput.RawButton.LThumbstick) && OVRInput.Get(OVRInput.RawButton.LThumbstick))
+        {
+            resetTime += Time.deltaTime;
+            if (resetTime >= 20)
+            {
+                UIManager.ResetData();
+                resetTime = 0;
+            }
+
+            if (OVRInput.GetUp(OVRInput.RawButton.LThumbstick) || OVRInput.GetUp(OVRInput.RawButton.LThumbstick)) resetTime = 0;
+        }
     }
 }
