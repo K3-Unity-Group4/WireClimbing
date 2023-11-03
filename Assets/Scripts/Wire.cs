@@ -79,6 +79,13 @@ public class Wire : MonoBehaviour
         if (OVRInput.Get(OVRInput.RawButton.RIndexTrigger))
         {
             raycastHitpoint = hitObj.position + worldPoint;
+            //振動追加
+            OVRInput.SetControllerVibration(0.1f, 0.1f, OVRInput.Controller.RTouch);
+        }
+        else
+        {
+            //振動追加
+            OVRInput.SetControllerVibration(0,0, OVRInput.Controller.RTouch);
         }
 
         if (OVRInput.GetUp(OVRInput.RawButton.RIndexTrigger))
