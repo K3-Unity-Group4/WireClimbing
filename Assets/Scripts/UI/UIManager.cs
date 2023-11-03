@@ -53,7 +53,8 @@ public class UIManager : MonoBehaviour
         //originalUI_pos = UI_pos.position.y;
         prestagename= SceneManager.GetActiveScene().name;
         stage_text.text = prestagename;
-        fasttime_text.text = PlayerPrefs.GetFloat("BestTime0").ToString()+" s";
+        List<float> bestTimes = UIManager.LoadBestTimes();
+        fasttime_text.text = bestTimes[0].ToString()+" s";
         StartCoroutine("TimeManager");
     }
     void Update()
